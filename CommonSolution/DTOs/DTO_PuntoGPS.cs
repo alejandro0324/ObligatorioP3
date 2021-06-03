@@ -10,8 +10,8 @@ namespace CommonSolution.DTOs
     {
         public int id;
 
-        public float latitud;
+        public float? latitud;
 
-        public float longitud;
+        public float? longitud;
     }
 }

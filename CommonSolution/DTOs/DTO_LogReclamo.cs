@@ -16,11 +16,11 @@ namespace CommonSolution.DTOs
 
         public string tipoReclamo;
 
-        public float latitud;
+        public float? latitud;
 
-        public float longitud;
+        public float? longitud;
 
-        public DateTime fechaHora;
+        public DateTime? fechaHora;
 
         public string estado;
 

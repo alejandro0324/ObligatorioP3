@@ -10,26 +10,26 @@ namespace CommonSolution.DTOs
     {
         public int numero;
 
-        public float latitud;
+        public float? latitud;
 
-        public float longitud;
+        public float? longitud;
 
-        public string observacionesCliente;
+        public string observacionesCuadrilla;
 
         public string observacionesCiudadano;
 
         public string comentarioFuncionario;
 
-        public DateTime faechaHora;
+        public DateTime? fchaHora;
 
         public string estado;
 
-        public int idCiudadano;
+        public int? idCiudadano;
 
-        public int idTipoReclamo;
+        public int? idTipoReclamo;
 
-        public int numeroZona;
+        public int? numeroZona;
 
-        public int numeroCuadrilla;
+        public int? numeroCuadrilla;
     }
 }

@@ -50,6 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapper\T_PuntoGPSMapper.cs" />
+    <Compile Include="Mapper\T_CuadrillaMapper.cs" />
+    <Compile Include="Mapper\T_FuncionarioMapper.cs" />
+    <Compile Include="Mapper\T_CiudadanoMapper.cs" />
+    <Compile Include="Mapper\T_LogReclamoMapper.cs" />
+    <Compile Include="Mapper\T_PersonaMapper.cs" />
+    <Compile Include="Mapper\T_ReclamoMapper.cs" />
+    <Compile Include="Mapper\T_TipoReclamoMapper.cs" />
+    <Compile Include="Mapper\T_ZonaMapper.cs" />
     <Compile Include="Model\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -123,9 +132,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mapper\" />
     <Folder Include="Persistencia\" />
     <Folder Include="Repositorios\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonSolution\CommonSolution.csproj">
+      <Project>{3525A4D8-DA07-4A7B-8525-CB269A8FF7DF}</Project>
+      <Name>CommonSolution</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

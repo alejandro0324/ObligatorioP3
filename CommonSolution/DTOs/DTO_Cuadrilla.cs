@@ -12,8 +12,8 @@ namespace CommonSolution.DTOs
 
         public string nombre;
 
-        public int cantidadPeones;
+        public int? cantidadPeones;
 
-        public int idFuncionario;
+        public int? idFuncionario;
     }
 }

@@ -14,6 +14,6 @@ namespace CommonSolution.DTOs
 
         public string color;
 
-        public int idPuntoGPS;
+        public int? idPuntoGPS;
     }
 }
