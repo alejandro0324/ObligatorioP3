@@ -25,7 +25,7 @@ namespace DataAccess.Model
         public string color { get; set; }
         public Nullable<int> IdPuntoGps { get; set; }
     
-        public virtual T_PuntoGPS T_PuntoGPS { get; set; }
+        public virtual T_PuntoGps T_PuntoGps { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Reclamo> T_Reclamo { get; set; }
     }

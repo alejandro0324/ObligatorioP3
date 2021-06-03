@@ -12,13 +12,13 @@ namespace DataAccess.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class T_Persona
+    public partial class T_Usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public T_Persona()
+        public T_Usuario()
         {
-            this.T_Ciudadano = new HashSet<T_Ciudadano>();
-            this.T_Funcionario = new HashSet<T_Funcionario>();
+            this.T_Cuadrilla = new HashSet<T_Cuadrilla>();
+            this.T_Reclamo = new HashSet<T_Reclamo>();
         }
     
         public string nombreUsuario { get; set; }
@@ -27,10 +27,11 @@ namespace DataAccess.Model
         public string apellido { get; set; }
         public string telefono { get; set; }
         public string correoElectronico { get; set; }
+        public string userType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Ciudadano> T_Ciudadano { get; set; }
+        public virtual ICollection<T_Cuadrilla> T_Cuadrilla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Funcionario> T_Funcionario { get; set; }
+        public virtual ICollection<T_Reclamo> T_Reclamo { get; set; }
     }
 }

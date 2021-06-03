@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommonSolution.DTOs
 {
-    public class DTO_Persona
+    public class DTO_Usuario
     {
         public string nombreUsuario;
 
@@ -19,5 +19,7 @@ namespace CommonSolution.DTOs
         public string telefono;
 
         public string correoElectronico;
+
+        public string userType;
     }
 }

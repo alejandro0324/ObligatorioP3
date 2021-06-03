@@ -12,15 +12,15 @@ namespace DataAccess.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class T_PuntoGPS
+    public partial class T_PuntoGps
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public T_PuntoGPS()
+        public T_PuntoGps()
         {
             this.T_Zona = new HashSet<T_Zona>();
         }
     
-        public int Id { get; set; }
+        public int id { get; set; }
         public Nullable<float> latitud { get; set; }
         public Nullable<float> longitud { get; set; }
     

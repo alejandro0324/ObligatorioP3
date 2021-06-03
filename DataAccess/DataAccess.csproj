@@ -52,94 +52,84 @@
   <ItemGroup>
     <Compile Include="Mapper\T_PuntoGPSMapper.cs" />
     <Compile Include="Mapper\T_CuadrillaMapper.cs" />
-    <Compile Include="Mapper\T_FuncionarioMapper.cs" />
-    <Compile Include="Mapper\T_CiudadanoMapper.cs" />
     <Compile Include="Mapper\T_LogReclamoMapper.cs" />
-    <Compile Include="Mapper\T_PersonaMapper.cs" />
+    <Compile Include="Mapper\T_UsuarioMapper.cs" />
     <Compile Include="Mapper\T_ReclamoMapper.cs" />
     <Compile Include="Mapper\T_TipoReclamoMapper.cs" />
     <Compile Include="Mapper\T_ZonaMapper.cs" />
-    <Compile Include="Model\Model1.Context.cs">
+    <Compile Include="Model\AyuntamientoToledo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Model1.cs">
+    <Compile Include="Model\AyuntamientoToledo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Model1.Designer.cs">
+    <Compile Include="Model\AyuntamientoToledo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\T_Ciudadano.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\T_Cuadrilla.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\T_Funcionario.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\T_LogReclamo.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\T_Persona.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\T_PuntoGPS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Model\T_PuntoGps.cs">
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\T_Reclamo.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\T_TipoReclamo.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\T_Usuario.cs">
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\T_Zona.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Persistencia\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Model\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="Model\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Model\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
+    <Compile Include="Repositorios\UsuarioRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Persistencia\" />
-    <Folder Include="Repositorios\" />
+    <EntityDeploy Include="Model\AyuntamientoToledo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AyuntamientoToledo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonSolution\CommonSolution.csproj">
       <Project>{3525A4D8-DA07-4A7B-8525-CB269A8FF7DF}</Project>
       <Name>CommonSolution</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\AyuntamientoToledo.edmx.diagram">
+      <DependentUpon>AyuntamientoToledo.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\AyuntamientoToledo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AyuntamientoToledo.Context.cs</LastGenOutput>
+      <DependentUpon>AyuntamientoToledo.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\AyuntamientoToledo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AyuntamientoToledo.edmx</DependentUpon>
+      <LastGenOutput>AyuntamientoToledo.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

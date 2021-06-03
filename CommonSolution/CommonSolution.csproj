@@ -41,11 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\DTO_Ciudadano.cs" />
     <Compile Include="DTOs\DTO_Cuadrilla.cs" />
-    <Compile Include="DTOs\DTO_Funcionario.cs" />
     <Compile Include="DTOs\DTO_LogReclamo.cs" />
-    <Compile Include="DTOs\DTO_Persona.cs" />
+    <Compile Include="DTOs\DTO_Usuario.cs" />
     <Compile Include="DTOs\DTO_PuntoGPS.cs" />
     <Compile Include="DTOs\DTO_Reclamo.cs" />
     <Compile Include="DTOs\DTO_TipoReclamo.cs" />

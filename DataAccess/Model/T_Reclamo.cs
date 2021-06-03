@@ -22,13 +22,13 @@ namespace DataAccess.Model
         public string comentarioFuncionario { get; set; }
         public Nullable<System.DateTime> fechahora { get; set; }
         public string estado { get; set; }
-        public Nullable<int> IdCiudadano { get; set; }
+        public string nombreUsuario { get; set; }
         public Nullable<int> IdTipoReclamo { get; set; }
         public Nullable<int> numeroZona { get; set; }
         public Nullable<int> numeroCuadrilla { get; set; }
     
-        public virtual T_Ciudadano T_Ciudadano { get; set; }
         public virtual T_Cuadrilla T_Cuadrilla { get; set; }
+        public virtual T_Usuario T_Usuario { get; set; }
         public virtual T_TipoReclamo T_TipoReclamo { get; set; }
         public virtual T_Zona T_Zona { get; set; }
     }

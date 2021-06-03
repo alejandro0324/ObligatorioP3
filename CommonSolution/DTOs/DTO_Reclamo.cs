@@ -24,7 +24,7 @@ namespace CommonSolution.DTOs
 
         public string estado;
 
-        public int? idCiudadano;
+        public string nombreUsuario;
 
         public int? idTipoReclamo;
 

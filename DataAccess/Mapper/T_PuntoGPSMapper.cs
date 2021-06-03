@@ -10,35 +10,35 @@ namespace DataAccess.Mapper
 {
     public class T_PuntoGPSMapper
     {
-        public T_PuntoGPS toEnt(DTO_PuntoGPS dto)
+        public T_PuntoGps toEnt(DTO_PuntoGPS dto)
         {
             if (dto == null)
                 return null;
 
-            return new T_PuntoGPS()
+            return new T_PuntoGps()
             {
-                Id = dto.id,
+                id = dto.id,
                 latitud = dto.latitud,
                 longitud = dto.longitud
             };
         }
 
-        public DTO_PuntoGPS toMap(T_PuntoGPS ent)
+        public DTO_PuntoGPS toMap(T_PuntoGps ent)
         {
             if (ent == null)
                 return null;
 
             return new DTO_PuntoGPS()
             {
-                id = ent.Id,
+                id = ent.id,
                 latitud = ent.latitud,
                 longitud = ent.longitud
             };
         }
 
-        public List<T_PuntoGPS> toEnt(List<DTO_PuntoGPS> dto)
+        public List<T_PuntoGps> toEnt(List<DTO_PuntoGPS> dto)
         {
-            List<T_PuntoGPS> toEnt = new List<T_PuntoGPS>();
+            List<T_PuntoGps> toEnt = new List<T_PuntoGps>();
             foreach (DTO_PuntoGPS item in dto)
             {
                 toEnt.Add(this.toEnt(item));
@@ -46,10 +46,10 @@ namespace DataAccess.Mapper
             return toEnt;
         }
 
-        public List<DTO_PuntoGPS> toMap(List<T_PuntoGPS> ent)
+        public List<DTO_PuntoGPS> toMap(List<T_PuntoGps> ent)
         {
             List<DTO_PuntoGPS> toMap = new List<DTO_PuntoGPS>();
-            foreach (T_PuntoGPS item in ent)
+            foreach (T_PuntoGps item in ent)
             {
                 toMap.Add(this.toMap(item));
             }

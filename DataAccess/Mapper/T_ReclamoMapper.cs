@@ -17,7 +17,7 @@ namespace DataAccess.Mapper
 
             return new T_Reclamo()
             {
-                IdCiudadano = dto.idCiudadano,
+                nombreUsuario = dto.nombreUsuario,
                 longitud = dto.longitud,
                 latitud = dto.latitud,
                 comentarioFuncionario = dto.comentarioFuncionario,
@@ -39,7 +39,7 @@ namespace DataAccess.Mapper
 
             return new DTO_Reclamo()
             {
-                idCiudadano = ent.IdCiudadano,
+                nombreUsuario = ent.nombreUsuario,
                 longitud = ent.longitud,
                 latitud = ent.latitud,
                 comentarioFuncionario = ent.comentarioFuncionario,

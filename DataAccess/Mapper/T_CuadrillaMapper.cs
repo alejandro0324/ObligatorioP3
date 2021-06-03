@@ -18,7 +18,7 @@ namespace DataAccess.Mapper
             return new T_Cuadrilla()
             {
                 cantidadPeones = dto.cantidadPeones,
-                IdFuncionario = dto.idFuncionario,
+                nombreUsuario = dto.nombreUsuario,
                 nombre = dto.nombre,
                 numero = dto.numero
             };
@@ -32,7 +32,7 @@ namespace DataAccess.Mapper
             return new DTO_Cuadrilla()
             {
                 cantidadPeones = ent.cantidadPeones,
-                idFuncionario = ent.IdFuncionario,
+                nombreUsuario = ent.nombreUsuario,
                 nombre = ent.nombre,
                 numero = ent.numero
             };

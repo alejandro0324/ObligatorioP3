@@ -23,9 +23,9 @@ namespace DataAccess.Model
         public int numero { get; set; }
         public string nombre { get; set; }
         public Nullable<int> cantidadPeones { get; set; }
-        public Nullable<int> IdFuncionario { get; set; }
+        public string nombreUsuario { get; set; }
     
-        public virtual T_Funcionario T_Funcionario { get; set; }
+        public virtual T_Usuario T_Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Reclamo> T_Reclamo { get; set; }
     }
