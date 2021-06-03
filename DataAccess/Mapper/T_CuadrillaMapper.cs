@@ -17,10 +17,10 @@ namespace DataAccess.Mapper
 
             return new T_Cuadrilla()
             {
-                cantidadPeones = dto.cantidadPeones,
                 nombreUsuario = dto.nombreUsuario,
                 nombre = dto.nombre,
-                numero = dto.numero
+                cantidadPeones = dto.cantidadPeones,
+                numero = dto.numero,
             };
         }
 

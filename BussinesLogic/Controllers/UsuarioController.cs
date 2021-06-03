@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Controllers
 {
-    public class PersonaController
+    public class UsuarioController
     {
         private Repository repository;
 
-        public PersonaController()
+        public UsuarioController()
         {
             this.repository = new Repository();
         }
