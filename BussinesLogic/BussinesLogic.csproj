@@ -41,11 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\FuncionarioController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\CommonSolution\CommonSolution.csproj">
+      <Project>{3525A4D8-DA07-4A7B-8525-CB269A8FF7DF}</Project>
+      <Name>CommonSolution</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{FF5EC520-D5A4-4F2D-934D-1123C0E3392F}</Project>
       <Name>DataAccess</Name>

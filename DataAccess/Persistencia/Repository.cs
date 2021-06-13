@@ -9,16 +9,40 @@ namespace DataAccess.Persistencia
 {
     public class Repository
     {
-        private UsuarioRepository personaRepository;
+        private ZonaRepository zonaRepository;
+        private CuadrillaRepository cuadrillaRepository;
+        private TipoReclamoRepository tipoReclamoRepository;
+        private ReclamoRepository reclamoRepository;
+        private PuntoGpsRepository puntoGpsRepository;
 
         public Repository()
         {
-            this.personaRepository = new UsuarioRepository();
+            this.zonaRepository = new ZonaRepository();
+            this.cuadrillaRepository = new CuadrillaRepository();
+            this.tipoReclamoRepository = new TipoReclamoRepository();
+            this.reclamoRepository = new ReclamoRepository();
+            this.puntoGpsRepository = new PuntoGpsRepository();
         }
         
-        public UsuarioRepository GetPersonaRepository()
+        public ZonaRepository GetZonaRepository()
         {
-            return this.personaRepository;
+            return this.zonaRepository;
+        }
+        public CuadrillaRepository GetCuadrillaRepository()
+        {
+            return this.cuadrillaRepository;
+        }
+        public TipoReclamoRepository GetTipoReclamoRepository()
+        {
+            return this.tipoReclamoRepository;
+        }
+        public ReclamoRepository GetReclamoRepository()
+        {
+            return this.reclamoRepository;
+        }
+        public PuntoGpsRepository GetPuntoGpsRepository()
+        {
+            return this.puntoGpsRepository;
         }
     }
 }
