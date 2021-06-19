@@ -1,0 +1,53 @@
+﻿@model CommonSolution.DTOs.DTO_Cuadrilla
+
+@{
+    ViewBag.Title = "Borrar";
+}
+
+<h2>Borrar</h2>
+
+<h3>¿Estás seguro que quieres borrar la cuadrilla?</h3>
+<div>
+    <h4>DTO_Cuadrilla</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidadPeones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidadPeones)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("BorrarCuadrilla", "Cuadrilla", new { numero = Model.numero }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a la lista", "Listar")
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

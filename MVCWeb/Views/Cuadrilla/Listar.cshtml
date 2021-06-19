@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Cuadrilla>
+
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<p>
+    @Html.ActionLink("Nueva cuadrilla", "Agregar")
+</p>
+<table class="table">
+    <tr>
+        <th>Número</th>
+        <th>Nombre</th>
+        <th>Cantidad de Peones</th>
+    </tr>
+
+@foreach (CommonSolution.DTOs.DTO_Cuadrilla item in Model) {
+<tr>
+    <td>@Html.DisplayFor(modelItem => item.numero)</td>
+    <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+    <td>@Html.DisplayFor(modelItem => item.cantidadPeones)</td>
+    <td>
+        @Html.ActionLink("Editar", "Editar", new { numero = item.numero }) |
+        @Html.ActionLink("Borrar", "Borrar", new { numero = item.numero })
+    </td>
+</tr>
+}
+
+</table>

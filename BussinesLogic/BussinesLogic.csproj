@@ -41,9 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SystemController.cs" />
-    <Compile Include="Controllers\ClienteController.cs" />
-    <Compile Include="Controllers\FuncionarioController.cs" />
+    <Compile Include="Interfaces\IController.cs" />
+    <Compile Include="Logic\LCuadrillaController.cs" />
+    <Compile Include="Logic\LReclamoController.cs" />
+    <Compile Include="Logic\LZonaController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

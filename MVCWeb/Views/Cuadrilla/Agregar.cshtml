@@ -1,0 +1,58 @@
+﻿@model CommonSolution.DTOs.DTO_Cuadrilla
+
+@{
+    ViewBag.Title = "Agregar";
+}
+
+<h2>Agregar</h2>
+
+
+@using (Html.BeginForm("AgregarCuadrilla", "Cuadrilla"))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Formulario de alta - Cuadrilla</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.numero, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.numero, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.numero, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cantidadPeones, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.cantidadPeones, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.cantidadPeones, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Agregar" class="btn btn-default" />
+        </div>
+    </div>
+
+    @Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
+</div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Listar")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -84,6 +84,25 @@ namespace DataAccess.Repositorios
                 }
             }
         }
+        public bool ExisteCuadrilla(int numCuadrilla)
+        {
+            bool existe = false;
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        existe = context.T_Cuadrilla.AsNoTracking().Any(a => a.numero == numCuadrilla);
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return existe;
+        }
         public void BorrarCuadrilla(int numCuadrilla)
         {
             using (ATEntities context = new ATEntities())
@@ -104,6 +123,25 @@ namespace DataAccess.Repositorios
                     }
                 }
             }
+        }
+        public DTO_Cuadrilla CuadrillaByNumero(int numero)
+        {
+            DTO_Cuadrilla dto = new DTO_Cuadrilla();
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        dto = this.cuadrillaMapper.toMap(context.T_Cuadrilla.AsNoTracking().FirstOrDefault(f => f.numero == numero));
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return dto;
         }
     }
 }
