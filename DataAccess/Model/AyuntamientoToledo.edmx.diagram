@@ -9,15 +9,15 @@
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_LogReclamo" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_PuntoGps" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_Reclamo" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="AyuntamientoToledoModel.T_TipoReclamo" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_Usuario" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_Zona" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
         <AssociationConnector Association="AyuntamientoToledoModel.FK_Cuadrilla1" ManuallyRouted="false" />
         <AssociationConnector Association="AyuntamientoToledoModel.FK_Reclamo4" ManuallyRouted="false" />
         <AssociationConnector Association="AyuntamientoToledoModel.FK_Zona1" ManuallyRouted="false" />
         <AssociationConnector Association="AyuntamientoToledoModel.FK_Reclamo1" ManuallyRouted="false" />
-        <AssociationConnector Association="AyuntamientoToledoModel.FK_Reclamo2" ManuallyRouted="false" />
         <AssociationConnector Association="AyuntamientoToledoModel.FK_Reclamo3" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AyuntamientoToledoModel.T_TipoReclamo" Width="1.5" PointX="7.375" PointY="0.875" />
+        <AssociationConnector Association="AyuntamientoToledoModel.FK_Reclamo2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

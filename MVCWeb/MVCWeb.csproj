@@ -175,11 +175,14 @@
     <Content Include="Views\Cuadrilla\Agregar.cshtml" />
     <Content Include="Views\Cuadrilla\Borrar.cshtml" />
     <Content Include="Views\Cuadrilla\Editar.cshtml" />
+    <Content Include="Views\TipoReclamo\Agregar.cshtml" />
+    <Content Include="Views\TipoReclamo\Listar.cshtml" />
+    <Content Include="Views\TipoReclamo\Editar.cshtml" />
+    <Content Include="Views\TipoReclamo\Borrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\TipoReclamo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

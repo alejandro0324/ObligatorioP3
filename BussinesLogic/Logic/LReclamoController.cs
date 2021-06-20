@@ -19,20 +19,29 @@ namespace BussinesLogic.Logic
 
         #region TipoReclamo
 
+        public bool ExisteId(int id)
+        {
+            return this.repository.GetTipoReclamoRepository().ExisteId(id);
+        }
+        public DTO_TipoReclamo tipoReclamoById(int id)
+        {
+            return this.repository.GetTipoReclamoRepository().tipoReclamoById(id);
+        }
         public List<DTO_TipoReclamo> ListarTipoReclamo()
         {
             return this.repository.GetTipoReclamoRepository().ListarTipoReclamo();
         }
         public List<string> AgregarTipoReclamo(DTO_TipoReclamo dto)
         {
-            List<string> colErrores = this.ValidarCamposTipoReclamo(dto);
+            List<string> colMensajes = this.ValidarCamposTipoReclamo(dto);
 
-            if (colErrores.Count == 0)
+            if (colMensajes.Count == 0)
             {
                 this.repository.GetTipoReclamoRepository().AgregarTipoReclamo(dto);
+                colMensajes.Add("Tipo de reclamo agregado correctamente");
             }
 
-            return colErrores;
+            return colMensajes;
         }
         public List<string> ModificarTipoReclamo(DTO_TipoReclamo dto)
         {

@@ -19,6 +19,44 @@ namespace DataAccess.Repositorios
         {
             this.tipoReclamoMapper = new T_TipoReclamoMapper();
         }
+        public bool ExisteId(int id)
+        {
+            bool existe = false;
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        existe = context.T_TipoReclamo.AsNoTracking().Any(a => a.Id == id);
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return existe;
+        }
+        public DTO_TipoReclamo tipoReclamoById(int id)
+        {
+            DTO_TipoReclamo dto = new DTO_TipoReclamo();
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        return this.tipoReclamoMapper.toMap(context.T_TipoReclamo.AsNoTracking().FirstOrDefault(f => f.Id == id));
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return dto;
+        }
         public List<DTO_TipoReclamo> ListarTipoReclamo()
         {
             List<DTO_TipoReclamo> TipoReclamo = new List<DTO_TipoReclamo>();

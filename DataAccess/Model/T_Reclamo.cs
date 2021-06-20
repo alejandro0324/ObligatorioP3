@@ -29,7 +29,7 @@ namespace DataAccess.Model
     
         public virtual T_Cuadrilla T_Cuadrilla { get; set; }
         public virtual T_Usuario T_Usuario { get; set; }
-        public virtual T_TipoReclamo T_TipoReclamo { get; set; }
         public virtual T_Zona T_Zona { get; set; }
+        public virtual T_TipoReclamo T_TipoReclamo { get; set; }
     }
 }
