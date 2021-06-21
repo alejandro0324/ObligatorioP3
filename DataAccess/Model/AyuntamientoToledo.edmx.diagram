@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="468e6e51118c47e48a292047da0d5866" Name="Diagram1">
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_Cuadrilla" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="AyuntamientoToledoModel.T_LogReclamo" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AyuntamientoToledoModel.T_LogReclamo" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_PuntoGps" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_Reclamo" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="AyuntamientoToledoModel.T_Usuario" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
