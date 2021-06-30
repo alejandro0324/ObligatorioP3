@@ -26,6 +26,7 @@ namespace DataAccess.Model
         public Nullable<int> IdTipoReclamo { get; set; }
         public Nullable<int> numeroZona { get; set; }
         public Nullable<int> numeroCuadrilla { get; set; }
+        public string situacion { get; set; }
     
         public virtual T_Cuadrilla T_Cuadrilla { get; set; }
         public virtual T_Usuario T_Usuario { get; set; }

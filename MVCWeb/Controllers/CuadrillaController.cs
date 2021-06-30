@@ -25,7 +25,6 @@ namespace MVCWeb.Controllers
         {
             LCuadrillaController cuadrillaController = new LCuadrillaController();
             DTO_Cuadrilla dto = cuadrillaController.CuadrillaByNumero(numero);
-
             return View(dto);
         }
         public ActionResult Editar(int numero)
@@ -38,9 +37,18 @@ namespace MVCWeb.Controllers
         public ActionResult BorrarCuadrilla(int numero)
         {
             LCuadrillaController cuadrillaController = new LCuadrillaController();
-            cuadrillaController.BorrarCuadrilla(numero);
-
-            return RedirectToAction("Listar");
+            DTO_Cuadrilla dto = cuadrillaController.CuadrillaByNumero(numero);
+            
+            if (cuadrillaController.ContieneReclamos(dto))
+            {
+                ModelState.AddModelError("MsgReport", "La cuadrilla está encargada de reclamos y no puede darse de baja");
+                return View("Borrar", dto);
+            }
+            else
+            {
+                cuadrillaController.BorrarCuadrilla(numero);
+                return RedirectToAction("Listar");
+            }
         }
         public ActionResult AgregarCuadrilla(DTO_Cuadrilla dto)
         {

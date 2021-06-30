@@ -21,6 +21,7 @@ namespace DataAccess.Mapper
                 nombre = dto.nombre,
                 cantidadPeones = dto.cantidadPeones,
                 numero = dto.numero,
+                situacion = dto.situacion
             };
         }
 
@@ -34,7 +35,8 @@ namespace DataAccess.Mapper
                 cantidadPeones = ent.cantidadPeones,
                 nombreUsuario = ent.nombreUsuario,
                 nombre = ent.nombre,
-                numero = ent.numero
+                numero = ent.numero,
+                situacion = ent.situacion
             };
         }
 

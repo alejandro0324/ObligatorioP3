@@ -10,15 +10,13 @@
 namespace DataAccess.Model
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class T_PuntoGps
+    public partial class sp_helpdiagrams_Result
     {
-        public int id { get; set; }
-        public string latitud { get; set; }
-        public string longitud { get; set; }
-        public Nullable<int> idNumeroZona { get; set; }
-    
-        public virtual T_Zona T_Zona { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

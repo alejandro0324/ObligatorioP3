@@ -1,4 +1,5 @@
 ﻿using CommonSolution;
+using CommonSolution.Constantes;
 using CommonSolution.DTOs;
 using DataAccess.Mapper;
 using DataAccess.Model;
@@ -18,6 +19,25 @@ namespace DataAccess.Repositorios
         public CuadrillaRepository()
         {
             this.cuadrillaMapper = new T_CuadrillaMapper();
+        }
+        public bool ContieneReclamos(DTO_Cuadrilla dto)
+        {
+            bool existe = false;
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        existe = context.T_Reclamo.AsNoTracking().Any(a => a.numeroCuadrilla == dto.numero);
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return existe;
         }
         public List<DTO_Cuadrilla> ListarCuadrillas()
         {
@@ -111,9 +131,7 @@ namespace DataAccess.Repositorios
                 {
                     try
                     {
-                        T_Cuadrilla Cuadrilla = context.T_Cuadrilla.FirstOrDefault(f => f.numero == numCuadrilla);
-                        context.T_Cuadrilla.Remove(Cuadrilla);
-
+                        context.T_Cuadrilla.FirstOrDefault(f => f.numero == numCuadrilla).situacion = CGeneral.INACTIVO;
                         context.SaveChanges();
                         trann.Commit();
                     }

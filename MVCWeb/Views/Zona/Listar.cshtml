@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Zona>
+
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<p>
+    @Html.ActionLink("Nueva zona", "Agregar") |
+    @Html.ActionLink("Previsualizar todas las zonas", "PrevisualizarTodo")
+</p>
+<table class="table">
+    <tr>
+        <th>Número</th>
+        <th>Nombre</th>
+        <th>Color</th>
+        <th>Activa</th>
+    </tr>
+
+    @foreach (CommonSolution.DTOs.DTO_Zona item in Model)
+    {
+<tr>
+    <td>@Html.DisplayFor(modelItem => item.numero)</td>
+    <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+    <td>@Html.DisplayFor(modelItem => item.color)</td>
+    <td>
+        @if (item.situacion == "1")
+        {
+            <p>Sí</p>
+        }
+        else
+        {
+            <p>No</p>
+        }
+    </td>
+    <td>
+        @Html.ActionLink("Borrar", "Borrar", new { numero = item.numero }) |
+        @Html.ActionLink("Previsualizar", "Previsualizar", new { numero = item.numero })
+    </td>
+</tr>
+    }
+
+</table>

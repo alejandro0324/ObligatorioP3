@@ -1,0 +1,85 @@
+﻿@model CommonSolution.DTOs.DTO_Zona
+
+@{
+    ViewBag.Title = "Agregar";
+}
+
+<h2>Agregar</h2>
+
+
+
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Formulario de alta - Zona</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.numero, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.numero, new { htmlAttributes = new { @class = "form-control", @id = "numero" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @id = "nombre" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.color, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.color, new { htmlAttributes = new { @class = "form-control", @type = "color", @Value = "#000000", @id = "color" } })
+        </div>
+    </div>
+
+    @Html.DropDownListFor(model => model.puntosGps, new SelectList(""), htmlAttributes: new { @id = "selectCoords" })
+
+    <span id="map" class="map"></span>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXATp2dxa45_9cf-0Lq6qMbvwZE2CebAs&callback=initMap"
+            async defer>
+    </script>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="submit" type="submit" value="Agregar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+<div id="validationDiv"></div>
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Listar")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/agregarZona")
+    <script>
+        $(function () {
+            $("#submit").click(function () {
+                var url = "@Url.Action("AgregarZona", "Zona")";
+                var options = document.getElementById('selectCoords').options;
+                var puntosGps = [];
+                var numero = document.getElementById('numero').value;
+                var nombre = document.getElementById('nombre').value;
+                var color = document.getElementById('color').value;
+
+                for (var i = 0; i < options.length; i++) {
+                    puntosGps.push(options[i].value);
+                }
+
+                var data = { puntosGps: puntosGps, color: color, nombre: nombre, numero: numero };
+
+                $.post(url, data).done(function (data) {
+                    $("#validationDiv").html("");
+                    for (var i = 0; i < data.length; i++) {
+                        $("#validationDiv").append("<p id='validationMessage' class='text-danger-validate'>" + data[i] + "</p>");
+                    }
+                });
+            });
+        });
+    </script>
+}

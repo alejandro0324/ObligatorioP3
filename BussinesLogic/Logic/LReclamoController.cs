@@ -19,6 +19,10 @@ namespace BussinesLogic.Logic
 
         #region TipoReclamo
 
+        public bool ContieneReclamos(DTO_TipoReclamo dto)
+        {
+            return this.repository.GetTipoReclamoRepository().ContieneReclamos(dto);
+        }
         public bool ExisteId(int id)
         {
             return this.repository.GetTipoReclamoRepository().ExisteId(id);

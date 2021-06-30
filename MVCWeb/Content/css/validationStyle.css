@@ -4,6 +4,14 @@
     animation-duration: 4s;
 }
 
+.map {
+    position: absolute;
+    bottom: 10vh;
+    right: 20vh;
+    height: 80vh;
+    width: 80vh;
+}
+
 @keyframes redtoblack {
     from {
         color: red;

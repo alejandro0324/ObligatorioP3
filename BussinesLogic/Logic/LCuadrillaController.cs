@@ -1,4 +1,5 @@
-﻿using CommonSolution.DTOs;
+﻿using CommonSolution.Constantes;
+using CommonSolution.DTOs;
 using DataAccess.Persistencia;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,10 @@ namespace BussinesLogic.Controllers
 
         #region Cuadrilla
 
+        public bool ContieneReclamos(DTO_Cuadrilla dto)
+        {
+            return this.repository.GetCuadrillaRepository().ContieneReclamos(dto);
+        }
         public List<DTO_Cuadrilla> ListarCuadrillas()
         {
             return this.repository.GetCuadrillaRepository().ListarCuadrillas();
@@ -33,6 +38,7 @@ namespace BussinesLogic.Controllers
 
             if (colMensajes.Count == 0)
             {
+                dto.situacion = CGeneral.ACTIVO;
                 this.repository.GetCuadrillaRepository().AgregarCuadrilla(dto);
                 colMensajes.Add("Cuadrilla agregada con éxito");
             }

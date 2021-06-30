@@ -31,5 +31,7 @@ namespace CommonSolution.DTOs
         public int? numeroZona;
 
         public int? numeroCuadrilla;
+
+        public string situacion;
     }
 }

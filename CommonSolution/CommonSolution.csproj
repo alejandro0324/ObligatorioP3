@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constantes\CGeneral.cs" />
     <Compile Include="DTOs\DTO_Cuadrilla.cs" />
     <Compile Include="DTOs\DTO_LogReclamo.cs" />
     <Compile Include="DTOs\DTO_Usuario.cs" />

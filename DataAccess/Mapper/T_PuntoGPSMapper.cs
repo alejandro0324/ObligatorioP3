@@ -19,7 +19,8 @@ namespace DataAccess.Mapper
             {
                 id = dto.id,
                 latitud = dto.latitud,
-                longitud = dto.longitud
+                longitud = dto.longitud,
+                idNumeroZona = dto.idZona
             };
         }
 
@@ -32,7 +33,8 @@ namespace DataAccess.Mapper
             {
                 id = ent.id,
                 latitud = ent.latitud,
-                longitud = ent.longitud
+                longitud = ent.longitud,
+                idZona = (int)ent.idNumeroZona
             };
         }
 

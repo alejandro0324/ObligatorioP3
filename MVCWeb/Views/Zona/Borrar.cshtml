@@ -1,4 +1,4 @@
-﻿@model CommonSolution.DTOs.DTO_Cuadrilla
+﻿@model CommonSolution.DTOs.DTO_Zona
 
 @{
     ViewBag.Title = "Borrar";
@@ -6,7 +6,8 @@
 
 <h2>Borrar</h2>
 
-<h3>¿Seguro que quiere dar de baja la cuadrilla?</h3>
+<h3>¿Estás seguro que quieres dar de baja la zona?</h3>
+@Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -26,26 +27,22 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.cantidadPeones)
+            @Html.DisplayNameFor(model => model.color)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cantidadPeones)
+            @Html.DisplayFor(model => model.color)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm("BorrarCuadrilla", "Cuadrilla", new { numero = Model.numero }))
+    @using (Html.BeginForm("BorrarZona", "Zona", new { numero = Model.numero}))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Confirmar" class="btn btn-default" /> |
+            <input type="submit" value="Dar de baja" class="btn btn-default" /> |
             @Html.ActionLink("Volver a la lista", "Listar")
         </div>
     }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Zona>
+
+@{
+    ViewBag.Title = "Previsualizar todas";
+}
+
+<h2>Todas las zonas existentes</h2>
+
+<span id="map" class="map"></span>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXATp2dxa45_9cf-0Lq6qMbvwZE2CebAs&callback=initMap"
+        async defer>
+</script>
+
+<p>
+    @Html.ActionLink("Volver a la lista", "Listar")
+</p>
+
+@section Scripts {
+    <script>
+        let map;
+        let infoWindow;
+
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: { lat: 39.8634529372744, lng: -4.034255487260607 }
+            });
+
+            @foreach (var item in Model)
+            {
+                <text>
+                var
+                </text>
+                <text>
+                ZonaCoordenadas</text><text>@item.numero.ToString() = [
+                    @for(int i = 0; i < item.puntosGps.Count; i++)
+                    {
+                        if (i != item.puntosGps.Count - 1)
+                        {
+                            <text>
+                            new google.maps.LatLng(@item.puntosGps[i].longitud, @item.puntosGps[i].latitud),
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                            new google.maps.LatLng(@item.puntosGps[i].longitud, @item.puntosGps[i].latitud)
+                            </text>
+                        }
+                    }
+                ];
+                </text>
+                <text>
+                Zona</text><text>@item.numero.ToString() = new google.maps.Polygon({
+                    paths:
+                    </text>
+                    <text>
+                    ZonaCoordenadas</text><text>@item.numero.ToString(),
+                    draggable: false,
+                    editable: false,
+                    strokeColor: '@item.color',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '@item.color',
+                    fillOpacity: 0.35
+                });
+                </text>
+                <text>
+                Zona</text>@item.numero.ToString()
+                <text>
+                .setMap(map);
+                </text>
+                <text>infoWindow = new google.maps.InfoWindow();</text>
+                <text>Zona</text>@item.numero.ToString()<text>.addListener("click", function (event) {
+                    const polygon = this;
+                    const vertices = polygon.getPath();
+                    let contentString = "Número: @item.numero"
+                                        + "<br>" +
+                                        "Nombre: @item.nombre"
+                                        + "<br><br>";
+                    for (let i = 0; i < vertices.getLength(); i++) {
+                        const xy = vertices.getAt(i);
+                        contentString +=
+                            "Punto " + i + ": " + xy.lat() + "," + xy.lng() + "<br><br>";
+                    }
+                    infoWindow.setContent(contentString);
+                    infoWindow.setPosition(event.latLng);
+                    infoWindow.open(map);
+                })</text>
+            }
+
+        }
+    </script>
+}
