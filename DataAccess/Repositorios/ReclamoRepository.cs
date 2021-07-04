@@ -1,4 +1,5 @@
 ﻿using CommonSolution;
+using CommonSolution.Constantes;
 using CommonSolution.DTOs;
 using DataAccess.Mapper;
 using DataAccess.Model;
@@ -19,7 +20,7 @@ namespace DataAccess.Repositorios
         {
             this.reclamoMapper = new T_ReclamoMapper();
         }
-        public List<DTO_Reclamo> ListarReclamo()
+        public List<DTO_Reclamo> ListarReclamosPersonales()
         {
             List<DTO_Reclamo> Reclamos = new List<DTO_Reclamo>();
             using (ATEntities context = new ATEntities())
@@ -28,7 +29,7 @@ namespace DataAccess.Repositorios
                 {
                     try
                     {
-                        List<T_Reclamo> ReclamoDB = context.T_Reclamo.AsNoTracking().ToList();
+                        List<T_Reclamo> ReclamoDB = context.T_Reclamo.Where(w => w.situacion == CGeneral.ACTIVO).AsNoTracking().ToList();
                         Reclamos = this.reclamoMapper.toMap(ReclamoDB);
 
                         context.SaveChanges();
@@ -66,18 +67,21 @@ namespace DataAccess.Repositorios
                 }
             }
         }
-        public void AgregarReclamo(DTO_Reclamo dto)
+        public DTO_Reclamo AgregarReclamo(DTO_Reclamo dto)
         {
+            DTO_Reclamo dtoReturn = dto;
             using (ATEntities context = new ATEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
                     try
                     {
-                        context.T_Reclamo.Add(this.reclamoMapper.toEnt(dto));
-
+                        T_Reclamo reclamoNuevo = new T_Reclamo();
+                        reclamoNuevo = this.reclamoMapper.toEnt(dto);
+                        context.T_Reclamo.Add(reclamoNuevo);
                         context.SaveChanges();
                         trann.Commit();
+                        dtoReturn.numero = reclamoNuevo.numero;
                     }
                     catch (Exception ex)
                     {
@@ -85,6 +89,7 @@ namespace DataAccess.Repositorios
                     }
                 }
             }
+            return dtoReturn;
         }
         public void BorrarReclamo(int numReclamo)
         {
@@ -95,8 +100,7 @@ namespace DataAccess.Repositorios
                     try
                     {
                         T_Reclamo reclamo = context.T_Reclamo.FirstOrDefault(f => f.numero == numReclamo);
-                        context.T_Reclamo.Remove(reclamo);
-
+                        reclamo.situacion = CGeneral.INACTIVO;
                         context.SaveChanges();
                         trann.Commit();
                     }
@@ -106,6 +110,25 @@ namespace DataAccess.Repositorios
                     }
                 }
             }
+        }
+        public DTO_Reclamo ReclamoByNumero(int numero)
+        {
+            DTO_Reclamo dto = new DTO_Reclamo();
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        return this.reclamoMapper.toMap(context.T_Reclamo.AsNoTracking().FirstOrDefault(f => f.numero == numero));
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return dto;
         }
     }
 }

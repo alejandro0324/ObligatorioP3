@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Formulario de alta - Cuadrilla</h4>
+    <h4>Formulario de alta - Cuadrilla @Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -40,12 +40,18 @@
     </div>
 
     <div class="form-group">
+        <label>Número de zona asociada:</label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.numZona, new SelectList(ViewBag.zonas, "numero", "nombre"), htmlAttributes: new { @class = "select" })
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Agregar" class="btn btn-default" />
         </div>
     </div>
 
-    @Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
 </div>
 }
 

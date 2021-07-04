@@ -13,13 +13,16 @@
           <Property Name="nombre" Type="varchar" MaxLength="20" />
           <Property Name="cantidadPeones" Type="int" />
           <Property Name="nombreUsuario" Type="varchar" MaxLength="20" />
+          <Property Name="situacion" Type="varchar" MaxLength="1" />
+          <Property Name="numZona" Type="int" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'AyuntamientoToledo.dbo.T_LogReclamo' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="T_LogReclamo">
           <Key>
             <PropertyRef Name="numReclamo" />
           </Key>
           <Property Name="nombreUsuario" Type="varchar" MaxLength="20" />
-          <Property Name="telefonoCiudadano" Type="varchar" MaxLength="20" />
           <Property Name="numReclamo" Type="int" Nullable="false" />
           <Property Name="tipoReclamo" Type="varchar" MaxLength="20" />
           <Property Name="latitud" Type="float" />
@@ -35,16 +38,17 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="latitud" Type="float" />
-          <Property Name="longitud" Type="float" />
+          <Property Name="latitud" Type="varchar" MaxLength="30" />
+          <Property Name="longitud" Type="varchar" MaxLength="30" />
+          <Property Name="idNumeroZona" Type="int" />
         </EntityType>
         <EntityType Name="T_Reclamo">
           <Key>
             <PropertyRef Name="numero" />
           </Key>
-          <Property Name="numero" Type="int" Nullable="false" />
-          <Property Name="latitud" Type="real" />
-          <Property Name="longitud" Type="real" />
+          <Property Name="numero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="latitud" Type="varchar" MaxLength="30" />
+          <Property Name="longitud" Type="varchar" MaxLength="30" />
           <Property Name="observacionesCiudadano" Type="varchar" MaxLength="100" />
           <Property Name="observacionesCuadrilla" Type="varchar" MaxLength="100" />
           <Property Name="comentarioFuncionario" Type="varchar" MaxLength="100" />
@@ -54,12 +58,13 @@
           <Property Name="IdTipoReclamo" Type="int" />
           <Property Name="numeroZona" Type="int" />
           <Property Name="numeroCuadrilla" Type="int" />
+          <Property Name="situacion" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="T_TipoReclamo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" />
           <Property Name="descripcion" Type="varchar" MaxLength="100" />
         </EntityType>
@@ -82,17 +87,29 @@
           <Property Name="numero" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="20" />
           <Property Name="color" Type="varchar" MaxLength="20" />
-          <Property Name="IdPuntoGps" Type="int" />
+          <Property Name="situacion" Type="varchar" MaxLength="1" />
         </EntityType>
         <Association Name="FK_Cuadrilla1">
-          <End Role="T_Usuario" Type="Self.T_Usuario" Multiplicity="0..1" />
+          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="0..1" />
           <End Role="T_Cuadrilla" Type="Self.T_Cuadrilla" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="T_Usuario">
-              <PropertyRef Name="nombreUsuario" />
+            <Principal Role="T_Zona">
+              <PropertyRef Name="numero" />
             </Principal>
             <Dependent Role="T_Cuadrilla">
-              <PropertyRef Name="nombreUsuario" />
+              <PropertyRef Name="numZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PuntoGps1">
+          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="0..1" />
+          <End Role="T_PuntoGps" Type="Self.T_PuntoGps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="T_PuntoGps">
+              <PropertyRef Name="idNumeroZona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -144,29 +161,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Zona1">
-          <End Role="T_PuntoGps" Type="Self.T_PuntoGps" Multiplicity="0..1" />
-          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_PuntoGps">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="T_Zona">
-              <PropertyRef Name="IdPuntoGps" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="AyuntamientoToledoModelStoreContainer">
           <EntitySet Name="T_Cuadrilla" EntityType="Self.T_Cuadrilla" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_LogReclamo" EntityType="Self.T_LogReclamo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_PuntoGps" EntityType="Self.T_PuntoGps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Reclamo" EntityType="Self.T_Reclamo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_TipoReclamo" EntityType="Self.T_TipoReclamo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Usuario" EntityType="Self.T_Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_Zona" EntityType="Self.T_Zona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_LogReclamo" EntityType="Self.T_LogReclamo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [T_LogReclamo].[nombreUsuario] AS [nombreUsuario], 
+    [T_LogReclamo].[numReclamo] AS [numReclamo], 
+    [T_LogReclamo].[tipoReclamo] AS [tipoReclamo], 
+    [T_LogReclamo].[latitud] AS [latitud], 
+    [T_LogReclamo].[longitud] AS [longitud], 
+    [T_LogReclamo].[fechaHora] AS [fechaHora], 
+    [T_LogReclamo].[estado] AS [estado], 
+    [T_LogReclamo].[observacionesCiudadno] AS [observacionesCiudadno], 
+    [T_LogReclamo].[observacionesCuadrilla] AS [observacionesCuadrilla], 
+    [T_LogReclamo].[comentarioFuncionario] AS [comentarioFuncionario]
+    FROM [dbo].[T_LogReclamo] AS [T_LogReclamo]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Cuadrilla1" Association="Self.FK_Cuadrilla1">
-            <End Role="T_Usuario" EntitySet="T_Usuario" />
+            <End Role="T_Zona" EntitySet="T_Zona" />
             <End Role="T_Cuadrilla" EntitySet="T_Cuadrilla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PuntoGps1" Association="Self.FK_PuntoGps1">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_PuntoGps" EntitySet="T_PuntoGps" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamo1" Association="Self.FK_Reclamo1">
             <End Role="T_Usuario" EntitySet="T_Usuario" />
@@ -184,72 +237,11 @@
             <End Role="T_Cuadrilla" EntitySet="T_Cuadrilla" />
             <End Role="T_Reclamo" EntitySet="T_Reclamo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Zona1" Association="Self.FK_Zona1">
-            <End Role="T_PuntoGps" EntitySet="T_PuntoGps" />
-            <End Role="T_Zona" EntitySet="T_Zona" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AyuntamientoToledoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="T_Cuadrilla">
-          <Key>
-            <PropertyRef Name="numero" />
-          </Key>
-          <Property Name="numero" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="cantidadPeones" Type="Int32" />
-          <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="T_Usuario" Relationship="Self.FK_Cuadrilla1" FromRole="T_Cuadrilla" ToRole="T_Usuario" />
-          <NavigationProperty Name="T_Reclamo" Relationship="Self.FK_Reclamo4" FromRole="T_Cuadrilla" ToRole="T_Reclamo" />
-        </EntityType>
-        <EntityType Name="T_LogReclamo">
-          <Key>
-            <PropertyRef Name="numReclamo" />
-          </Key>
-          <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="telefonoCiudadano" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="numReclamo" Type="Int32" Nullable="false" />
-          <Property Name="tipoReclamo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="latitud" Type="Single" />
-          <Property Name="longitud" Type="Single" />
-          <Property Name="fechaHora" Type="DateTime" Precision="3" />
-          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="observacionesCiudadno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="observacionesCuadrilla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="comentarioFuncionario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="T_PuntoGps">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="latitud" Type="Single" />
-          <Property Name="longitud" Type="Single" />
-          <NavigationProperty Name="T_Zona" Relationship="Self.FK_Zona1" FromRole="T_PuntoGps" ToRole="T_Zona" />
-        </EntityType>
-        <EntityType Name="T_Reclamo">
-          <Key>
-            <PropertyRef Name="numero" />
-          </Key>
-          <Property Name="numero" Type="Int32" Nullable="false" />
-          <Property Name="latitud" Type="Single" />
-          <Property Name="longitud" Type="Single" />
-          <Property Name="observacionesCiudadano" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="observacionesCuadrilla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="comentarioFuncionario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="fechahora" Type="DateTime" Precision="3" />
-          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IdTipoReclamo" Type="Int32" />
-          <Property Name="numeroZona" Type="Int32" />
-          <Property Name="numeroCuadrilla" Type="Int32" />
-          <NavigationProperty Name="T_Cuadrilla" Relationship="Self.FK_Reclamo4" FromRole="T_Reclamo" ToRole="T_Cuadrilla" />
-          <NavigationProperty Name="T_Usuario" Relationship="Self.FK_Reclamo1" FromRole="T_Reclamo" ToRole="T_Usuario" />
-          <NavigationProperty Name="T_Zona" Relationship="Self.FK_Reclamo3" FromRole="T_Reclamo" ToRole="T_Zona" />
-          <NavigationProperty Name="T_TipoReclamo" Relationship="AyuntamientoToledoModel.FK_Reclamo2" FromRole="T_Reclamo" ToRole="T_TipoReclamo" />
-        </EntityType>
         <EntityType Name="T_Usuario">
           <Key>
             <PropertyRef Name="nombreUsuario" />
@@ -261,9 +253,71 @@
           <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="correoElectronico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="userType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="T_Cuadrilla" Relationship="Self.FK_Cuadrilla1" FromRole="T_Usuario" ToRole="T_Cuadrilla" />
-          <NavigationProperty Name="T_Reclamo" Relationship="Self.FK_Reclamo1" FromRole="T_Usuario" ToRole="T_Reclamo" />
+          <NavigationProperty Name="T_Reclamo" Relationship="AyuntamientoToledoModel.FK_Reclamo1" FromRole="T_Usuario" ToRole="T_Reclamo" />
         </EntityType>
+        <EntityContainer Name="ATEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_Usuario" EntityType="Self.T_Usuario" />
+          <EntitySet Name="T_Zona" EntityType="AyuntamientoToledoModel.T_Zona" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(AyuntamientoToledoModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(AyuntamientoToledoModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="T_PuntoGps" EntityType="AyuntamientoToledoModel.T_PuntoGps" />
+          <AssociationSet Name="FK_PuntoGps1" Association="AyuntamientoToledoModel.FK_PuntoGps1">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_PuntoGps" EntitySet="T_PuntoGps" />
+          </AssociationSet>
+          <EntitySet Name="T_TipoReclamo" EntityType="AyuntamientoToledoModel.T_TipoReclamo" />
+          <EntitySet Name="T_Cuadrilla" EntityType="AyuntamientoToledoModel.T_Cuadrilla" />
+          <AssociationSet Name="FK_Cuadrilla1" Association="AyuntamientoToledoModel.FK_Cuadrilla1">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Cuadrilla" EntitySet="T_Cuadrilla" />
+          </AssociationSet>
+          <EntitySet Name="T_Reclamo" EntityType="AyuntamientoToledoModel.T_Reclamo" />
+          <AssociationSet Name="FK_Reclamo4" Association="AyuntamientoToledoModel.FK_Reclamo4">
+            <End Role="T_Cuadrilla" EntitySet="T_Cuadrilla" />
+            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamo1" Association="AyuntamientoToledoModel.FK_Reclamo1">
+            <End Role="T_Usuario" EntitySet="T_Usuario" />
+            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamo2" Association="AyuntamientoToledoModel.FK_Reclamo2">
+            <End Role="T_TipoReclamo" EntitySet="T_TipoReclamo" />
+            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamo3" Association="AyuntamientoToledoModel.FK_Reclamo3">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
+          </AssociationSet>
+          <EntitySet Name="T_LogReclamo" EntityType="AyuntamientoToledoModel.T_LogReclamo" />
+          </EntityContainer>
         <EntityType Name="T_Zona">
           <Key>
             <PropertyRef Name="numero" />
@@ -271,25 +325,103 @@
           <Property Name="numero" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="color" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IdPuntoGps" Type="Int32" />
-          <NavigationProperty Name="T_PuntoGps" Relationship="Self.FK_Zona1" FromRole="T_Zona" ToRole="T_PuntoGps" />
-          <NavigationProperty Name="T_Reclamo" Relationship="Self.FK_Reclamo3" FromRole="T_Zona" ToRole="T_Reclamo" />
+          <Property Name="situacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_PuntoGps" Relationship="AyuntamientoToledoModel.FK_PuntoGps1" FromRole="T_Zona" ToRole="T_PuntoGps" />
+          <NavigationProperty Name="T_Cuadrilla" Relationship="AyuntamientoToledoModel.FK_Cuadrilla1" FromRole="T_Zona" ToRole="T_Cuadrilla" />
+          <NavigationProperty Name="T_Reclamo" Relationship="AyuntamientoToledoModel.FK_Reclamo3" FromRole="T_Zona" ToRole="T_Reclamo" />
         </EntityType>
-        <Association Name="FK_Cuadrilla1">
-          <End Role="T_Usuario" Type="Self.T_Usuario" Multiplicity="0..1" />
-          <End Role="T_Cuadrilla" Type="Self.T_Cuadrilla" Multiplicity="*" />
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="T_PuntoGps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="latitud" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="longitud" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idNumeroZona" Type="Int32" />
+          <NavigationProperty Name="T_Zona" Relationship="AyuntamientoToledoModel.FK_PuntoGps1" FromRole="T_PuntoGps" ToRole="T_Zona" />
+        </EntityType>
+        <Association Name="FK_PuntoGps1">
+          <End Type="AyuntamientoToledoModel.T_Zona" Role="T_Zona" Multiplicity="0..1" />
+          <End Type="AyuntamientoToledoModel.T_PuntoGps" Role="T_PuntoGps" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="T_Usuario">
-              <PropertyRef Name="nombreUsuario" />
+            <Principal Role="T_Zona">
+              <PropertyRef Name="numero" />
             </Principal>
-            <Dependent Role="T_Cuadrilla">
-              <PropertyRef Name="nombreUsuario" />
+            <Dependent Role="T_PuntoGps">
+              <PropertyRef Name="idNumeroZona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="T_TipoReclamo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Reclamo" Relationship="AyuntamientoToledoModel.FK_Reclamo2" FromRole="T_TipoReclamo" ToRole="T_Reclamo" />
+        </EntityType>
+        <EntityType Name="T_Cuadrilla">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cantidadPeones" Type="Int32" />
+          <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="situacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="numZona" Type="Int32" />
+          <NavigationProperty Name="T_Zona" Relationship="AyuntamientoToledoModel.FK_Cuadrilla1" FromRole="T_Cuadrilla" ToRole="T_Zona" />
+          <NavigationProperty Name="T_Reclamo" Relationship="AyuntamientoToledoModel.FK_Reclamo4" FromRole="T_Cuadrilla" ToRole="T_Reclamo" />
+        </EntityType>
+        <Association Name="FK_Cuadrilla1">
+          <End Type="AyuntamientoToledoModel.T_Zona" Role="T_Zona" Multiplicity="0..1" />
+          <End Type="AyuntamientoToledoModel.T_Cuadrilla" Role="T_Cuadrilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="T_Cuadrilla">
+              <PropertyRef Name="numZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="T_Reclamo">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="latitud" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="longitud" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesCiudadano" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesCuadrilla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="comentarioFuncionario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fechahora" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoReclamo" Type="Int32" />
+          <Property Name="numeroZona" Type="Int32" />
+          <Property Name="numeroCuadrilla" Type="Int32" />
+          <Property Name="situacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Cuadrilla" Relationship="AyuntamientoToledoModel.FK_Reclamo4" FromRole="T_Reclamo" ToRole="T_Cuadrilla" />
+          <NavigationProperty Name="T_Usuario" Relationship="AyuntamientoToledoModel.FK_Reclamo1" FromRole="T_Reclamo" ToRole="T_Usuario" />
+          <NavigationProperty Name="T_TipoReclamo" Relationship="AyuntamientoToledoModel.FK_Reclamo2" FromRole="T_Reclamo" ToRole="T_TipoReclamo" />
+          <NavigationProperty Name="T_Zona" Relationship="AyuntamientoToledoModel.FK_Reclamo3" FromRole="T_Reclamo" ToRole="T_Zona" />
+        </EntityType>
         <Association Name="FK_Reclamo4">
-          <End Role="T_Cuadrilla" Type="Self.T_Cuadrilla" Multiplicity="0..1" />
-          <End Role="T_Reclamo" Type="Self.T_Reclamo" Multiplicity="*" />
+          <End Type="AyuntamientoToledoModel.T_Cuadrilla" Role="T_Cuadrilla" Multiplicity="0..1" />
+          <End Type="AyuntamientoToledoModel.T_Reclamo" Role="T_Reclamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Cuadrilla">
               <PropertyRef Name="numero" />
@@ -299,21 +431,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Zona1">
-          <End Role="T_PuntoGps" Type="Self.T_PuntoGps" Multiplicity="0..1" />
-          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_PuntoGps">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="T_Zona">
-              <PropertyRef Name="IdPuntoGps" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Reclamo1">
-          <End Role="T_Usuario" Type="Self.T_Usuario" Multiplicity="0..1" />
-          <End Role="T_Reclamo" Type="Self.T_Reclamo" Multiplicity="*" />
+          <End Type="AyuntamientoToledoModel.T_Usuario" Role="T_Usuario" Multiplicity="0..1" />
+          <End Type="AyuntamientoToledoModel.T_Reclamo" Role="T_Reclamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Usuario">
               <PropertyRef Name="nombreUsuario" />
@@ -323,60 +443,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reclamo3">
-          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="0..1" />
-          <End Role="T_Reclamo" Type="Self.T_Reclamo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_Zona">
-              <PropertyRef Name="numero" />
-            </Principal>
-            <Dependent Role="T_Reclamo">
-              <PropertyRef Name="numeroZona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ATEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="T_Cuadrilla" EntityType="Self.T_Cuadrilla" />
-          <EntitySet Name="T_LogReclamo" EntityType="Self.T_LogReclamo" />
-          <EntitySet Name="T_PuntoGps" EntityType="Self.T_PuntoGps" />
-          <EntitySet Name="T_Reclamo" EntityType="Self.T_Reclamo" />
-          <EntitySet Name="T_Usuario" EntityType="Self.T_Usuario" />
-          <EntitySet Name="T_Zona" EntityType="Self.T_Zona" />
-          <AssociationSet Name="FK_Cuadrilla1" Association="Self.FK_Cuadrilla1">
-            <End Role="T_Usuario" EntitySet="T_Usuario" />
-            <End Role="T_Cuadrilla" EntitySet="T_Cuadrilla" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamo4" Association="Self.FK_Reclamo4">
-            <End Role="T_Cuadrilla" EntitySet="T_Cuadrilla" />
-            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zona1" Association="Self.FK_Zona1">
-            <End Role="T_PuntoGps" EntitySet="T_PuntoGps" />
-            <End Role="T_Zona" EntitySet="T_Zona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamo1" Association="Self.FK_Reclamo1">
-            <End Role="T_Usuario" EntitySet="T_Usuario" />
-            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamo3" Association="Self.FK_Reclamo3">
-            <End Role="T_Zona" EntitySet="T_Zona" />
-            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
-          </AssociationSet>
-          <EntitySet Name="T_TipoReclamo" EntityType="AyuntamientoToledoModel.T_TipoReclamo" />
-          <AssociationSet Name="FK_Reclamo2" Association="AyuntamientoToledoModel.FK_Reclamo2">
-            <End Role="T_TipoReclamo" EntitySet="T_TipoReclamo" />
-            <End Role="T_Reclamo" EntitySet="T_Reclamo" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="T_TipoReclamo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="T_Reclamo" Relationship="AyuntamientoToledoModel.FK_Reclamo2" FromRole="T_TipoReclamo" ToRole="T_Reclamo" />
-        </EntityType>
         <Association Name="FK_Reclamo2">
           <End Type="AyuntamientoToledoModel.T_TipoReclamo" Role="T_TipoReclamo" Multiplicity="0..1" />
           <End Type="AyuntamientoToledoModel.T_Reclamo" Role="T_Reclamo" Multiplicity="*" />
@@ -389,66 +455,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Reclamo3">
+          <End Type="AyuntamientoToledoModel.T_Zona" Role="T_Zona" Multiplicity="0..1" />
+          <End Type="AyuntamientoToledoModel.T_Reclamo" Role="T_Reclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="T_Reclamo">
+              <PropertyRef Name="numeroZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="T_LogReclamo">
+          <Key>
+            <PropertyRef Name="numReclamo" />
+          </Key>
+          <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="numReclamo" Type="Int32" Nullable="false" />
+          <Property Name="tipoReclamo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="latitud" Type="Double" />
+          <Property Name="longitud" Type="Double" />
+          <Property Name="fechaHora" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesCiudadno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesCuadrilla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="comentarioFuncionario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AyuntamientoToledoModelStoreContainer" CdmEntityContainer="ATEntities">
-          <EntitySetMapping Name="T_Cuadrilla">
-            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_Cuadrilla">
-              <MappingFragment StoreEntitySet="T_Cuadrilla">
-                <ScalarProperty Name="numero" ColumnName="numero" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="cantidadPeones" ColumnName="cantidadPeones" />
-                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_LogReclamo">
-            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_LogReclamo">
-              <MappingFragment StoreEntitySet="T_LogReclamo">
-                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
-                <ScalarProperty Name="telefonoCiudadano" ColumnName="telefonoCiudadano" />
-                <ScalarProperty Name="numReclamo" ColumnName="numReclamo" />
-                <ScalarProperty Name="tipoReclamo" ColumnName="tipoReclamo" />
-                <ScalarProperty Name="latitud" ColumnName="latitud" />
-                <ScalarProperty Name="longitud" ColumnName="longitud" />
-                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="observacionesCiudadno" ColumnName="observacionesCiudadno" />
-                <ScalarProperty Name="observacionesCuadrilla" ColumnName="observacionesCuadrilla" />
-                <ScalarProperty Name="comentarioFuncionario" ColumnName="comentarioFuncionario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_PuntoGps">
-            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_PuntoGps">
-              <MappingFragment StoreEntitySet="T_PuntoGps">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="latitud" ColumnName="latitud" />
-                <ScalarProperty Name="longitud" ColumnName="longitud" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_Reclamo">
-            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_Reclamo">
-              <MappingFragment StoreEntitySet="T_Reclamo">
-                <ScalarProperty Name="numero" ColumnName="numero" />
-                <ScalarProperty Name="latitud" ColumnName="latitud" />
-                <ScalarProperty Name="longitud" ColumnName="longitud" />
-                <ScalarProperty Name="observacionesCiudadano" ColumnName="observacionesCiudadano" />
-                <ScalarProperty Name="observacionesCuadrilla" ColumnName="observacionesCuadrilla" />
-                <ScalarProperty Name="comentarioFuncionario" ColumnName="comentarioFuncionario" />
-                <ScalarProperty Name="fechahora" ColumnName="fechahora" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
-                <ScalarProperty Name="IdTipoReclamo" ColumnName="IdTipoReclamo" />
-                <ScalarProperty Name="numeroZona" ColumnName="numeroZona" />
-                <ScalarProperty Name="numeroCuadrilla" ColumnName="numeroCuadrilla" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="T_Usuario">
             <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_Usuario">
               <MappingFragment StoreEntitySet="T_Usuario">
@@ -465,10 +504,44 @@
           <EntitySetMapping Name="T_Zona">
             <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_Zona">
               <MappingFragment StoreEntitySet="T_Zona">
-                <ScalarProperty Name="numero" ColumnName="numero" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="situacion" ColumnName="situacion" />
                 <ScalarProperty Name="color" ColumnName="color" />
-                <ScalarProperty Name="IdPuntoGps" ColumnName="IdPuntoGps" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="AyuntamientoToledoModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="AyuntamientoToledoModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="AyuntamientoToledoModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="AyuntamientoToledoModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AyuntamientoToledoModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="AyuntamientoToledoModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AyuntamientoToledoModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="AyuntamientoToledoModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="AyuntamientoToledoModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="T_PuntoGps">
+            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_PuntoGps">
+              <MappingFragment StoreEntitySet="T_PuntoGps">
+                <ScalarProperty Name="idNumeroZona" ColumnName="idNumeroZona" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -478,6 +551,53 @@
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Cuadrilla">
+            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_Cuadrilla">
+              <MappingFragment StoreEntitySet="T_Cuadrilla">
+                <ScalarProperty Name="numZona" ColumnName="numZona" />
+                <ScalarProperty Name="situacion" ColumnName="situacion" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+                <ScalarProperty Name="cantidadPeones" ColumnName="cantidadPeones" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Reclamo">
+            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_Reclamo">
+              <MappingFragment StoreEntitySet="T_Reclamo">
+                <ScalarProperty Name="situacion" ColumnName="situacion" />
+                <ScalarProperty Name="numeroCuadrilla" ColumnName="numeroCuadrilla" />
+                <ScalarProperty Name="numeroZona" ColumnName="numeroZona" />
+                <ScalarProperty Name="IdTipoReclamo" ColumnName="IdTipoReclamo" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechahora" ColumnName="fechahora" />
+                <ScalarProperty Name="comentarioFuncionario" ColumnName="comentarioFuncionario" />
+                <ScalarProperty Name="observacionesCuadrilla" ColumnName="observacionesCuadrilla" />
+                <ScalarProperty Name="observacionesCiudadano" ColumnName="observacionesCiudadano" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_LogReclamo">
+            <EntityTypeMapping TypeName="AyuntamientoToledoModel.T_LogReclamo">
+              <MappingFragment StoreEntitySet="T_LogReclamo">
+                <ScalarProperty Name="comentarioFuncionario" ColumnName="comentarioFuncionario" />
+                <ScalarProperty Name="observacionesCuadrilla" ColumnName="observacionesCuadrilla" />
+                <ScalarProperty Name="observacionesCiudadno" ColumnName="observacionesCiudadno" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="tipoReclamo" ColumnName="tipoReclamo" />
+                <ScalarProperty Name="numReclamo" ColumnName="numReclamo" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

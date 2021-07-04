@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Reclamo>
+
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Lista de reclamos</h2>
+<p>En esta pantalla verá los reclamos realizados</p>
+<p>Puede ver sus detalles y darlos de baja si todavía están en estado "PENDIENTE".</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Número
+        </th>
+        <th>
+            Estado
+        </th>
+        <th>
+            Fecha/Hora
+        </th>
+        <th>
+            Opciones
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fchaHora)
+        </td>
+        <td>
+            @Html.ActionLink("Detalles", "Detalles", new { numero = item.numero })
+            @if (item.estado == "PENDIENTE")
+            {
+                @Html.ActionLink("Dar de baja", "Borrar", new { numero = item.numero })
+            }
+        </td>
+    </tr>
+}
+
+</table>

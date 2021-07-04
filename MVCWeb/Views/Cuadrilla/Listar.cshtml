@@ -14,6 +14,8 @@
         <th>Número</th>
         <th>Nombre</th>
         <th>Cantidad de Peones</th>
+        <th>Activa</th>
+        <th>Opciones</th>
     </tr>
 
 @foreach (CommonSolution.DTOs.DTO_Cuadrilla item in Model) {
@@ -22,8 +24,18 @@
     <td>@Html.DisplayFor(modelItem => item.nombre)</td>
     <td>@Html.DisplayFor(modelItem => item.cantidadPeones)</td>
     <td>
+        @if (item.situacion == "1")
+        {
+            <p>Sí</p>
+        }
+        else
+        {
+            <p>No</p>
+        }
+    </td>
+    <td>
         @Html.ActionLink("Editar", "Editar", new { numero = item.numero }) |
-        @Html.ActionLink("Borrar", "Borrar", new { numero = item.numero })
+        @Html.ActionLink("Cambiar estado", "Borrar", new { numero = item.numero })
     </td>
 </tr>
 }

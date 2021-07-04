@@ -19,32 +19,52 @@ namespace MVCWeb.Controllers
         }
         public ActionResult Agregar()
         {
+            LZonaController zonaController = new LZonaController();
+            ViewBag.zonas = zonaController.ListarZonas().ToList();
             return View();
         }
         public ActionResult Borrar(int numero)
         {
             LCuadrillaController cuadrillaController = new LCuadrillaController();
             DTO_Cuadrilla dto = cuadrillaController.CuadrillaByNumero(numero);
-
             return View(dto);
         }
         public ActionResult Editar(int numero)
         {
+            LZonaController zonaController = new LZonaController();
+            ViewBag.zonas = zonaController.ListarZonas().ToList();
             LCuadrillaController cuadrillaController = new LCuadrillaController();
             DTO_Cuadrilla dto = cuadrillaController.CuadrillaByNumero(numero);
 
             return View(dto);
         }
-        public ActionResult BorrarCuadrilla(int numero)
+        public ActionResult CambiarEstado(int numero)
         {
             LCuadrillaController cuadrillaController = new LCuadrillaController();
-            cuadrillaController.BorrarCuadrilla(numero);
+            DTO_Cuadrilla dto = cuadrillaController.CuadrillaByNumero(numero);
 
-            return RedirectToAction("Listar");
+            if (cuadrillaController.ContieneReclamos(dto))
+            {
+                ModelState.AddModelError("MsgReport", "La cuadrilla contiene reclamos actualmente y no puede cambiar de estado");
+                return View("Borrar", dto);
+            }
+            else
+            {
+                if (dto.situacion == "1")
+                {
+                    cuadrillaController.BorrarCuadrilla(numero);
+                }
+                else
+                {
+                    cuadrillaController.ActivarCuadrilla(numero);
+                }
+
+                return RedirectToAction("Listar");
+            }
         }
         public ActionResult AgregarCuadrilla(DTO_Cuadrilla dto)
         {
-            LCuadrillaController cuadrillaController = new LCuadrillaController();
+            LCuadrillaController cuadrillaController = new LCuadrillaController();  
             List<string> colMensajes = cuadrillaController.AgregarCuadrilla(dto);
 
             foreach (string msg in colMensajes)
@@ -52,10 +72,15 @@ namespace MVCWeb.Controllers
                 ModelState.AddModelError("MsgReport", msg);
             }
 
+            LZonaController zonaController = new LZonaController();
+            ViewBag.zonas = zonaController.ListarZonas().ToList();
+
             return View("Agregar");
         }
         public ActionResult EditarCuadrilla(DTO_Cuadrilla dto, int numero)
         {
+            LZonaController zonaController = new LZonaController();
+            ViewBag.zonas = zonaController.ListarZonas().ToList();
             dto.numero = numero;
             LCuadrillaController cuadrillaController = new LCuadrillaController();
             cuadrillaController.ModificarCuadrilla(dto);

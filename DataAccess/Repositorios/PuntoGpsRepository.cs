@@ -19,7 +19,7 @@ namespace DataAccess.Repositorios
         {
             this.puntoGPSMapper = new T_PuntoGPSMapper();
         }
-        public void AgregarPuntoGps(DTO_PuntoGPS dto)
+        public DTO_PuntoGPS AgregarPuntoGps(DTO_PuntoGPS dto)
         {
             using (ATEntities context = new ATEntities())
             {
@@ -38,6 +38,7 @@ namespace DataAccess.Repositorios
                     }
                 }
             }
+            return dto;
         }
         public void ModificarPuntoGps(DTO_PuntoGPS dto)
         {

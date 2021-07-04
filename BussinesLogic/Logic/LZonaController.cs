@@ -19,30 +19,92 @@ namespace BussinesLogic.Controllers
 
         #region Zona
 
+        public bool ContieneReclamos(DTO_Zona dto)
+        {
+            return this.repository.GetZonaRepository().ContieneReclamos(dto);
+        }
+        public DTO_Zona ZonaByNumero(int numero)
+        {
+            return this.repository.GetZonaRepository().ZonaByNumero(numero);
+        }
+        public bool ExisteZona(int numero)
+        {
+            return this.repository.GetZonaRepository().ExisteZona(numero);
+        }
         public List<DTO_Zona> ListarZonas()
         {
             return this.repository.GetZonaRepository().ListarZonas();
         }
-        public List<string> AgregarZona(DTO_Zona dto)
+        public List<DTO_Zona> ListarZonasActivas()
         {
-            List<string> colErrores = this.ValidarZona(dto);
+            return this.repository.GetZonaRepository().ListarZonasActivas();
+        }
+        public List<string> AgregarZona(List<string> puntosGps, string color, string nombre, string numero)
+        {
+            List<string> colMensajes = this.ValidarZona(nombre, numero);
 
-            if (colErrores.Count == 0)
+            if (colMensajes.Count == 0)
             {
+                DTO_Zona dto = new DTO_Zona();
+                dto.color = color;
+                dto.nombre = nombre;
+                dto.numero = int.Parse(numero);
+                List<DTO_PuntoGPS> dtoGps = new List<DTO_PuntoGPS>();
+                dto.puntosGps = dtoGps;
+                dto.situacion = "1";
                 this.repository.GetZonaRepository().AgregarZona(dto);
+                foreach (string item in puntosGps)
+                {
+                    string[] split = item.Split(',');
+                    string longitud = split[0];
+                    string latitud = split[1];
+                    DTO_PuntoGPS puntoGPS = new DTO_PuntoGPS();
+                    puntoGPS.latitud = latitud;
+                    puntoGPS.longitud = longitud;
+                    puntoGPS.idZona = int.Parse(numero);
+                    this.AgregarPuntoGPS(puntoGPS);
+                    dto.puntosGps.Add(puntoGPS);
+                }
+                colMensajes.Add("Zona agregada con éxito");
             }
             
-            return colErrores;
+            return colMensajes;
         }
         public void BorrarZona(int numZona)
         {
             this.repository.GetZonaRepository().BorrarZona(numZona);
         }
-        public List<string> ValidarZona(DTO_Zona dto)
+        public void ActivarZona(int numZona)
+        {
+            this.repository.GetZonaRepository().ActivarZona(numZona);
+        }
+        public List<string> ValidarZona(string nombre, string numero)
         {
             List<string> errores = new List<string>();
 
-            //Validaciones
+            if (string.IsNullOrEmpty(nombre))
+            {
+                errores.Add("El nombre es requerido");
+            }
+            if (nombre.Length > 20)
+            {
+                errores.Add("El nombre es demasiado largo");
+            }
+            if (string.IsNullOrEmpty(numero))
+            {
+                errores.Add("El número es requerido");
+            }
+            else
+            {
+                if (int.Parse(numero) < 0)
+                {
+                    errores.Add("El número debe ser es positivo");
+                }
+                if (this.ExisteZona(int.Parse(numero)))
+                {
+                    errores.Add("Ya existe una zona con ese número");
+                }
+            }
 
             return errores;
         }
@@ -51,9 +113,9 @@ namespace BussinesLogic.Controllers
 
         #region PuntoGPS
 
-        public void AgregarPuntoGPS(DTO_PuntoGPS dto)
+        public DTO_PuntoGPS AgregarPuntoGPS(DTO_PuntoGPS dto)
         {
-            this.repository.GetPuntoGpsRepository().AgregarPuntoGps(dto);
+            return this.repository.GetPuntoGpsRepository().AgregarPuntoGps(dto);
         }
         public void BorrarPuntoGPS(int id)
         {

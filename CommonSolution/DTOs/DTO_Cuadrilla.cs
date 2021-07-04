@@ -26,5 +26,9 @@ namespace CommonSolution.DTOs
         public int? cantidadPeones { get; set; }
 
         public string nombreUsuario;
+
+        public string situacion;
+
+        public int numZona { get; set; }
     }
 }

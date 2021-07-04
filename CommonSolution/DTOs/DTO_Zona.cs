@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace CommonSolution.DTOs
 {
     public class DTO_Zona
     {
-        public int numero;
+        [DisplayName("Número:")]
+        public int numero { get; set; }
+        [DisplayName("Nombre:")]
+        public string nombre { get; set; }
+        [DisplayName("Color:")]
+        public string color { get; set; }
 
-        public string nombre;
+        public string situacion;
 
-        public string color;
-
-        public int? idPuntoGPS;
+        public List<DTO_PuntoGPS> puntosGps;
     }
 }

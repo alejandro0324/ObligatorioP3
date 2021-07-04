@@ -10,15 +10,13 @@ namespace CommonSolution.DTOs
     {
         public string nombreUsuario;
 
-        public string telefonoCiudadano;
-
         public int numReclamo;
 
         public string tipoReclamo;
 
-        public float? latitud;
+        public double? latitud;
 
-        public float? longitud;
+        public double? longitud;
 
         public DateTime? fechaHora;
 

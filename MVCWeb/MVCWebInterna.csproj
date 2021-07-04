@@ -129,6 +129,7 @@
     <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TipoReclamoController.cs" />
+    <Compile Include="Controllers\ZonaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -140,7 +141,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\generalPage.css" />
+    <Content Include="Content\css\mapsApi.css" />
     <Content Include="Content\css\validationStyle.css" />
+    <Content Include="Content\photos\bandera.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -157,6 +160,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mapsApi\agregarZona.js" />
+    <Content Include="Scripts\mapsApi\previsualizarZona.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -180,6 +185,11 @@
     <Content Include="Views\TipoReclamo\Listar.cshtml" />
     <Content Include="Views\TipoReclamo\Editar.cshtml" />
     <Content Include="Views\TipoReclamo\Borrar.cshtml" />
+    <Content Include="Views\Zona\Listar.cshtml" />
+    <Content Include="Views\Zona\Agregar.cshtml" />
+    <Content Include="Views\Zona\Borrar.cshtml" />
+    <Content Include="Views\Zona\Previsualizar.cshtml" />
+    <Content Include="Views\Zona\PrevisualizarTodo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

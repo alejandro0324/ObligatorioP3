@@ -19,6 +19,25 @@ namespace DataAccess.Repositorios
         {
             this.tipoReclamoMapper = new T_TipoReclamoMapper();
         }
+        public bool ContieneReclamos(DTO_TipoReclamo dto)
+        {
+            bool existe = false;
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        existe = context.T_Reclamo.AsNoTracking().Any(a => a.IdTipoReclamo == dto.id);
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return existe;
+        }
         public bool ExisteId(int id)
         {
             bool existe = false;
@@ -88,6 +107,7 @@ namespace DataAccess.Repositorios
                 {
                     try
                     {
+                        dto.id = default;
                         context.T_TipoReclamo.Add(this.tipoReclamoMapper.toEnt(dto));
 
                         context.SaveChanges();

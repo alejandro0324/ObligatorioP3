@@ -14,17 +14,11 @@ namespace DataAccess.Model
     
     public partial class T_PuntoGps
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public T_PuntoGps()
-        {
-            this.T_Zona = new HashSet<T_Zona>();
-        }
-    
         public int id { get; set; }
-        public Nullable<float> latitud { get; set; }
-        public Nullable<float> longitud { get; set; }
+        public string latitud { get; set; }
+        public string longitud { get; set; }
+        public Nullable<int> idNumeroZona { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Zona> T_Zona { get; set; }
+        public virtual T_Zona T_Zona { get; set; }
     }
 }
