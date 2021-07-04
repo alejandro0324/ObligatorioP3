@@ -26,7 +26,6 @@ namespace DataAccess.Mapper
                 numReclamo = dto.numReclamo,
                 observacionesCiudadno = dto.observacionesCiudadano,
                 observacionesCuadrilla = dto.observacionesCuadrilla,
-                telefonoCiudadano = dto.telefonoCiudadano,
                 tipoReclamo = dto.tipoReclamo  
             };
         }
@@ -47,7 +46,6 @@ namespace DataAccess.Mapper
                 numReclamo = ent.numReclamo,
                 observacionesCiudadano = ent.observacionesCiudadno,
                 observacionesCuadrilla = ent.observacionesCuadrilla,
-                telefonoCiudadano = ent.telefonoCiudadano,
                 tipoReclamo = ent.tipoReclamo
             };
         }

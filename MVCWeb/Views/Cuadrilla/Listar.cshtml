@@ -15,6 +15,7 @@
         <th>Nombre</th>
         <th>Cantidad de Peones</th>
         <th>Activa</th>
+        <th>Opciones</th>
     </tr>
 
 @foreach (CommonSolution.DTOs.DTO_Cuadrilla item in Model) {
@@ -34,7 +35,7 @@
     </td>
     <td>
         @Html.ActionLink("Editar", "Editar", new { numero = item.numero }) |
-        @Html.ActionLink("Dar de baja", "Borrar", new { numero = item.numero })
+        @Html.ActionLink("Cambiar estado", "Borrar", new { numero = item.numero })
     </td>
 </tr>
 }

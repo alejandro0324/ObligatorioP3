@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,14 @@ namespace CommonSolution.DTOs
     {
         public int numero;
 
-        public float? latitud;
+        public string latitud { get; set; }
 
-        public float? longitud;
+        public string longitud { get; set; }
 
         public string observacionesCuadrilla;
 
-        public string observacionesCiudadano;
+        [DisplayName("Observaciones: ")]
+        public string observacionesCiudadano { get; set; }
 
         public string comentarioFuncionario;
 
@@ -26,7 +28,7 @@ namespace CommonSolution.DTOs
 
         public string nombreUsuario;
 
-        public int? idTipoReclamo;
+        public int? idTipoReclamo { get; set; }
 
         public int? numeroZona;
 

@@ -28,5 +28,7 @@ namespace CommonSolution.DTOs
         public string nombreUsuario;
 
         public string situacion;
+
+        public int numZona { get; set; }
     }
 }

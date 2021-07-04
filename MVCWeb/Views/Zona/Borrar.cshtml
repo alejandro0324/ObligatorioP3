@@ -6,7 +6,7 @@
 
 <h2>Borrar</h2>
 
-<h3>¿Estás seguro que quieres dar de baja la zona?</h3>
+<h3>¿Estás seguro que quieres cambiar el estado de la zona?</h3>
 @Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
 <div>
     <dl class="dl-horizontal">
@@ -36,12 +36,12 @@
 
     </dl>
 
-    @using (Html.BeginForm("BorrarZona", "Zona", new { numero = Model.numero}))
+    @using (Html.BeginForm("CambiarEstado", "Zona", new { numero = Model.numero}))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Dar de baja" class="btn btn-default" /> |
+            <input type="submit" value="Cambiar" class="btn btn-default" /> |
             @Html.ActionLink("Volver a la lista", "Listar")
         </div>
     }

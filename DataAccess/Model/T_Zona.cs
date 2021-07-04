@@ -17,8 +17,9 @@ namespace DataAccess.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_Zona()
         {
-            this.T_Reclamo = new HashSet<T_Reclamo>();
             this.T_PuntoGps = new HashSet<T_PuntoGps>();
+            this.T_Cuadrilla = new HashSet<T_Cuadrilla>();
+            this.T_Reclamo = new HashSet<T_Reclamo>();
         }
     
         public int numero { get; set; }
@@ -27,8 +28,10 @@ namespace DataAccess.Model
         public string situacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Reclamo> T_Reclamo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_PuntoGps> T_PuntoGps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Cuadrilla> T_Cuadrilla { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Reclamo> T_Reclamo { get; set; }
     }
 }

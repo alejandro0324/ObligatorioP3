@@ -19,6 +19,8 @@ namespace MVCWeb.Controllers
         }
         public ActionResult Agregar()
         {
+            LZonaController zonaController = new LZonaController();
+            ViewBag.Lista = zonaController.ListarZonasActivas();
             return View();
         }
         public ActionResult Borrar(int numero)
@@ -36,23 +38,31 @@ namespace MVCWeb.Controllers
         public ActionResult PrevisualizarTodo()
         {
             LZonaController zonaController = new LZonaController();
-            List<DTO_Zona> colDataModel = zonaController.ListarZonas();
+            List<DTO_Zona> colDataModel = zonaController.ListarZonasActivas();
 
             return View(colDataModel);
         }
-        public ActionResult BorrarZona(int numero)
+        public ActionResult CambiarEstado(int numero)
         {
             LZonaController zonaController = new LZonaController();
             DTO_Zona dto = zonaController.ZonaByNumero(numero);
 
             if (zonaController.ContieneReclamos(dto))
             {
-                ModelState.AddModelError("MsgReport", "La zona contiene reclamos actualmente y no puede ser dada de baja");
+                ModelState.AddModelError("MsgReport", "La zona contiene reclamos actualmente y no puede cambiar de estado");
                 return View("Borrar", dto);
             }
             else
             {
-                zonaController.BorrarZona(numero);
+                if (dto.situacion == "1")
+                {
+                    zonaController.BorrarZona(numero);
+                }
+                else
+                {
+                    zonaController.ActivarZona(numero);
+                }
+                
                 return RedirectToAction("Listar");
             }
         }

@@ -20,6 +20,10 @@ namespace BussinesLogic.Controllers
 
         #region Cuadrilla
 
+        public void ActivarCuadrilla(int numCuadrilla)
+        {
+            this.repository.GetCuadrillaRepository().ActivarCuadrilla(numCuadrilla);
+        }
         public bool ContieneReclamos(DTO_Cuadrilla dto)
         {
             return this.repository.GetCuadrillaRepository().ContieneReclamos(dto);

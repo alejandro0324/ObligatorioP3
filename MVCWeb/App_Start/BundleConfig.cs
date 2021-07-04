@@ -29,9 +29,8 @@ namespace MVCWeb
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
                       "~/Content/css/validationStyle.css",
+                      "~/Content/css/mapsApi.css",
                       "~/Content/css/generalPage.css"));
         }
     }

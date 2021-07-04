@@ -20,6 +20,25 @@ namespace DataAccess.Repositorios
         {
             this.cuadrillaMapper = new T_CuadrillaMapper();
         }
+        public void ActivarCuadrilla(int numCuadrilla)
+        {
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        context.T_Cuadrilla.FirstOrDefault(f => f.numero == numCuadrilla).situacion = CGeneral.ACTIVO;
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+        }
         public bool ContieneReclamos(DTO_Cuadrilla dto)
         {
             bool existe = false;
@@ -93,6 +112,7 @@ namespace DataAccess.Repositorios
                         T_Cuadrilla cuadrillaModificada = context.T_Cuadrilla.FirstOrDefault(f => f.numero == dto.numero);
                         cuadrillaModificada.nombre = dto.nombre;
                         cuadrillaModificada.cantidadPeones = dto.cantidadPeones;
+                        cuadrillaModificada.numZona = dto.numZona;
 
                         context.SaveChanges();
                         trann.Commit();

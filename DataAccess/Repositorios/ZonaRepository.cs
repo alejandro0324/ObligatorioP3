@@ -118,6 +118,25 @@ namespace DataAccess.Repositorios
                 }
             }
         }
+        public void ActivarZona(int numZona)
+        {
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        context.T_Zona.FirstOrDefault(f => f.numero == numZona).situacion = CGeneral.ACTIVO;
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+        }
         public List<DTO_Zona> ListarZonas()
         {
             List<DTO_Zona> Zonas = new List<DTO_Zona>();
@@ -140,6 +159,29 @@ namespace DataAccess.Repositorios
                 }
             }
             return Zonas;
-        } 
+        }
+        public List<DTO_Zona> ListarZonasActivas()
+        {
+            List<DTO_Zona> Zonas = new List<DTO_Zona>();
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        List<T_Zona> ZonasDB = context.T_Zona.Where(w => w.situacion == CGeneral.ACTIVO).AsNoTracking().ToList();
+                        Zonas = this.zonaMapper.toMap(ZonasDB);
+
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return Zonas;
+        }
     }
 }

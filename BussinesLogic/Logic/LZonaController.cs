@@ -35,6 +35,10 @@ namespace BussinesLogic.Controllers
         {
             return this.repository.GetZonaRepository().ListarZonas();
         }
+        public List<DTO_Zona> ListarZonasActivas()
+        {
+            return this.repository.GetZonaRepository().ListarZonasActivas();
+        }
         public List<string> AgregarZona(List<string> puntosGps, string color, string nombre, string numero)
         {
             List<string> colMensajes = this.ValidarZona(nombre, numero);
@@ -69,6 +73,10 @@ namespace BussinesLogic.Controllers
         public void BorrarZona(int numZona)
         {
             this.repository.GetZonaRepository().BorrarZona(numZona);
+        }
+        public void ActivarZona(int numZona)
+        {
+            this.repository.GetZonaRepository().ActivarZona(numZona);
         }
         public List<string> ValidarZona(string nombre, string numero)
         {

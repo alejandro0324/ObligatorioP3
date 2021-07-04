@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Persistencia\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorios\LogReclamoRepository.cs" />
     <Compile Include="Repositorios\PuntoGpsRepository.cs" />
     <Compile Include="Repositorios\TipoReclamoRepository.cs" />
     <Compile Include="Repositorios\CuadrillaRepository.cs" />

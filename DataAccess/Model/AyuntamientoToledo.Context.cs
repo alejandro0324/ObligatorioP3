@@ -27,13 +27,13 @@ namespace DataAccess.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<T_LogReclamo> T_LogReclamo { get; set; }
         public virtual DbSet<T_Usuario> T_Usuario { get; set; }
+        public virtual DbSet<T_Zona> T_Zona { get; set; }
+        public virtual DbSet<T_PuntoGps> T_PuntoGps { get; set; }
+        public virtual DbSet<T_TipoReclamo> T_TipoReclamo { get; set; }
         public virtual DbSet<T_Cuadrilla> T_Cuadrilla { get; set; }
         public virtual DbSet<T_Reclamo> T_Reclamo { get; set; }
-        public virtual DbSet<T_Zona> T_Zona { get; set; }
-        public virtual DbSet<T_TipoReclamo> T_TipoReclamo { get; set; }
-        public virtual DbSet<T_PuntoGps> T_PuntoGps { get; set; }
+        public virtual DbSet<T_LogReclamo> T_LogReclamo { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

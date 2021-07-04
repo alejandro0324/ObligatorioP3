@@ -10,12 +10,13 @@
     @Html.ActionLink("Nueva zona", "Agregar") |
     @Html.ActionLink("Previsualizar todas las zonas", "PrevisualizarTodo")
 </p>
-<table class="table">
+<table>
     <tr>
         <th>Número</th>
         <th>Nombre</th>
         <th>Color</th>
         <th>Activa</th>
+        <th>Opciones</th>
     </tr>
 
     @foreach (CommonSolution.DTOs.DTO_Zona item in Model)
@@ -35,7 +36,7 @@
         }
     </td>
     <td>
-        @Html.ActionLink("Borrar", "Borrar", new { numero = item.numero }) |
+        @Html.ActionLink("Cambiar estado", "Borrar", new { numero = item.numero }) |
         @Html.ActionLink("Previsualizar", "Previsualizar", new { numero = item.numero })
     </td>
 </tr>

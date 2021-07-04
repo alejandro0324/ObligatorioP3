@@ -17,7 +17,6 @@ namespace DataAccess.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_Usuario()
         {
-            this.T_Cuadrilla = new HashSet<T_Cuadrilla>();
             this.T_Reclamo = new HashSet<T_Reclamo>();
         }
     
@@ -29,8 +28,6 @@ namespace DataAccess.Model
         public string correoElectronico { get; set; }
         public string userType { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Cuadrilla> T_Cuadrilla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Reclamo> T_Reclamo { get; set; }
     }

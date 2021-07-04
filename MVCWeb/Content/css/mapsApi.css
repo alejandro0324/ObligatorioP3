@@ -1,1 +1,41 @@
-﻿
+﻿.map {
+    border: solid;
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    height: 60%;
+    width: 60%;
+}
+
+@media only screen and (max-width: 1250px) {
+    .map {
+        border: solid;
+        position: absolute;
+        bottom: 5vh;
+        right: 20vh;
+        height: 70vh;
+        width: 70vh;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .map {
+        border: solid;
+        position: absolute;
+        bottom: 5vh;
+        right: 20vh;
+        height: 70vh;
+        width: 50vh;
+    }
+}
+
+@media only screen and (max-width: 890px) {
+    .map {
+        border: solid;
+        position: absolute;
+        bottom: 5vh;
+        right: 20vh;
+        height: 40vh;
+        width: 40vh;
+    }
+}

@@ -15,8 +15,8 @@ namespace DataAccess.Model
     public partial class T_Reclamo
     {
         public int numero { get; set; }
-        public Nullable<float> latitud { get; set; }
-        public Nullable<float> longitud { get; set; }
+        public string latitud { get; set; }
+        public string longitud { get; set; }
         public string observacionesCiudadano { get; set; }
         public string observacionesCuadrilla { get; set; }
         public string comentarioFuncionario { get; set; }
@@ -30,7 +30,7 @@ namespace DataAccess.Model
     
         public virtual T_Cuadrilla T_Cuadrilla { get; set; }
         public virtual T_Usuario T_Usuario { get; set; }
-        public virtual T_Zona T_Zona { get; set; }
         public virtual T_TipoReclamo T_TipoReclamo { get; set; }
+        public virtual T_Zona T_Zona { get; set; }
     }
 }

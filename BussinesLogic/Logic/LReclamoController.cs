@@ -1,4 +1,5 @@
-﻿using CommonSolution.DTOs;
+﻿using CommonSolution.Constantes;
+using CommonSolution.DTOs;
 using DataAccess.Persistencia;
 using System;
 using System.Collections.Generic;
@@ -75,20 +76,28 @@ namespace BussinesLogic.Logic
 
         #region Reclamo
 
-        public List<DTO_Reclamo> ListarReclamo()
+        public DTO_Reclamo ReclamoByNumero(int numero)
         {
-            return this.repository.GetReclamoRepository().ListarReclamo();
+            return this.repository.GetReclamoRepository().ReclamoByNumero(numero);
+        }
+        public List<DTO_Reclamo> ListarReclamosPersonales()
+        {
+            return this.repository.GetReclamoRepository().ListarReclamosPersonales();
         }
         public List<string> AgregarReclamo(DTO_Reclamo dto)
         {
-            List<string> colErrores = this.ValidarCamposReclamo(dto);
+            List<string> colMensajes = this.ValidarCamposReclamo(dto);
+            dto.fchaHora = DateTime.Now;
+            dto.estado = CGeneral.PENDIENTE;
+            dto.situacion = CGeneral.ACTIVO;
 
-            if (colErrores.Count == 0)
+            if (colMensajes.Count == 0)
             {
                 this.repository.GetReclamoRepository().AgregarReclamo(dto);
+                colMensajes.Add("Reclamo ingresado, número: " + dto.numero.ToString());
             }
 
-            return colErrores;
+            return colMensajes;
         }
         public void BorrarReclamo(int numReclamo)
         {
