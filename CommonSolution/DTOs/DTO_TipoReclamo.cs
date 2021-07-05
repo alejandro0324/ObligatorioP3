@@ -11,10 +11,7 @@ namespace CommonSolution.DTOs
 {
     public class DTO_TipoReclamo
     {
-        [Range(0.0, int.MaxValue, ErrorMessage = "El número debe ser mayor a {1}.")]
-        [Remote("ValidarNumero", "TipoReclamo", ErrorMessage = "Ya existe un tipo de reclamo con ese número")]
-        [Required(ErrorMessage = "El número es requerido")]
-        [DisplayName("Número:")]
+        [DisplayName("Numero:")]
         public int id { get; set; }
         [DisplayName("Nombre:")]
         [Required(ErrorMessage = "El nombre es requerido")]

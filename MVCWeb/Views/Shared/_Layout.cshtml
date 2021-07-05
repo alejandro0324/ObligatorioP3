@@ -9,32 +9,30 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Cuadrillas", "Listar", "Cuadrilla")</li>
-                    <li>@Html.ActionLink("Tipo Reclamo", "Listar", "TipoReclamo")</li>
-                </ul>
-            </div>
+    <input type="checkbox" class="contraer">
+    <div class="navegation-header">
+        <div class="logo">
+            <img src="../../../Content/photos/bandera.svg" alt="Bandera Toledo" />
+            <p>Ayuntamiento de Toledo</p>
         </div>
+        <div class="navegation-header-info">
+            <p>Usuario: </p>
+            <p>Correo: </p>
+            <p>@Html.ActionLink("Cerrar sesión", "", "")</p>
+        </div>
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Cuadrillas", "Listar", "Cuadrilla")</li>
+                <li>@Html.ActionLink("Tipos de Reclamo", "Listar", "TipoReclamo")</li>
+                <li>@Html.ActionLink("Zonas", "Listar", "Zona")</li>
+                <li>@Html.ActionLink("Lista de Reclamos", "Listar", "ReclamoInterno")</li>
+            </ul>
+        </nav>
     </div>
-    <div class="container body-content">
+    <div class="body-content">
         @RenderBody()
-        <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - CorrupteliStudios</p>
         </footer>
     </div>
 

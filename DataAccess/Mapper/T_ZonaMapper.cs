@@ -19,8 +19,8 @@ namespace DataAccess.Mapper
             {
                 color = dto.color,
                 nombre = dto.nombre,
-                IdPuntoGps = dto.idPuntoGPS,
-                numero = dto.numero
+                numero = dto.numero,
+                situacion = dto.situacion
             };
         }
 
@@ -29,12 +29,20 @@ namespace DataAccess.Mapper
             if (ent == null)
                 return null;
 
+            List<DTO_PuntoGPS> puntoGPS = new List<DTO_PuntoGPS>();
+            T_PuntoGPSMapper mapper = new T_PuntoGPSMapper();
+            foreach (var item in ent.T_PuntoGps)
+            {
+                puntoGPS.Add(mapper.toMap(item));
+            }
+
             return new DTO_Zona()
             {
                 color = ent.color,
                 nombre = ent.nombre,
-                idPuntoGPS = ent.IdPuntoGps,
-                numero = ent.numero
+                numero = ent.numero,
+                situacion = ent.situacion,
+                puntosGps = puntoGPS,
             };
         }
 

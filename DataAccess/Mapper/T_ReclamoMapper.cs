@@ -29,6 +29,7 @@ namespace DataAccess.Mapper
                 numeroZona = dto.numeroZona,
                 observacionesCiudadano = dto.observacionesCiudadano,
                 observacionesCuadrilla = dto.observacionesCuadrilla,
+                situacion = dto.situacion
             };
         }
 
@@ -51,6 +52,7 @@ namespace DataAccess.Mapper
                 numeroZona = ent.numeroZona,
                 observacionesCiudadano = ent.observacionesCiudadano,
                 observacionesCuadrilla = ent.observacionesCuadrilla,
+                situacion = ent.situacion
             };
         }
 

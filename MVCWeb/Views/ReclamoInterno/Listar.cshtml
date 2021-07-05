@@ -1,0 +1,146 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Reclamo>
+
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Lista de reclamos</h2>
+<p>Para acceder a opciones: ⮥</p>
+@Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            Número
+        </th>
+        <th>
+            Fecha/Hora
+        </th>
+        <th>
+            Estado
+        </th>
+        <th>
+            Tipo de reclamo
+        </th>
+        <th>
+            Zona
+        </th>
+        <th>
+            Cuadrilla
+        </th>
+        <th>
+            Situación
+        </th>
+        <th>
+            Historial
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (item.situacion == "1")
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fchaHora)
+                </td>
+                <td>
+                    @if (item.situacion == "1" || item.estado == "DESESTIMADO")
+                    {
+                        @Html.DisplayFor(modelItem => item.estado) <text> </text>
+                        @Html.ActionLink("⮥", "EditarEstado", new { /* id=item.PrimaryKey */ })
+                    }
+                    else
+                    {
+                        <text>DESESTIMADO POR CLIENTE</text>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
+                </td>
+                <td>
+                    @if (item.zona == null)
+                    {
+                        <text>No asignada</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.zona.nombre)
+                    }
+                    @Html.ActionLink("⮥", "EditarZona", new { /* id=item.PrimaryKey */ })
+                </td>
+                <td>
+                    @if (item.zona == null)
+                    {
+                        <text>No asignada</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.cuadrilla.nombre)
+                    }
+                    @Html.ActionLink("⮥", "EditarCuadrilla", new { numeroReclamo = item.numero, numeroZona = item.numeroZona })
+                </td>
+                <td>
+                    <text>Activa</text>
+                </td>
+                <td>
+                    @Html.ActionLink("Ver", "Historial", new { numero = item.numero })
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fchaHora)
+                </td>
+                <td>
+                    @if (item.situacion == "1" || item.estado == "DESESTIMADO")
+                    {
+                        @Html.DisplayFor(modelItem => item.estado) <text> </text>
+                    }
+                    else
+                    {
+                        <text>DESESTIMADO POR CLIENTE</text>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
+                </td>
+                <td>
+                    @if (item.zona == null)
+                    {
+                        <text>No asignada</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.zona.nombre)
+                    }
+                </td>
+                <td>
+                    @if (item.zona == null)
+                    {
+                        <text>No asignada</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.cuadrilla.nombre)
+                    }
+                </td>
+                <td>
+                    <text>Inactiva</text>
+                </td>
+                <td>
+                    @Html.ActionLink("Ver", "Historial", new { numero = item.numero })
+                </td>
+            }
+        </tr>
+    }
+
+</table>

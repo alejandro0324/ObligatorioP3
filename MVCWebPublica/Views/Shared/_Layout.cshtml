@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <input type="checkbox" class="contraer">
+    <div class="navegation-header">
+        <div class="logo">
+            <img src="../../../Content/photos/bandera.svg" alt="Bandera Toledo" />
+            <p>Ayuntamiento de Toledo</p>
+        </div>
+        <div class="navegation-header-info">
+            <p>Usuario: </p>
+            <p>Correo: </p>
+            <p>@Html.ActionLink("Cerrar sesión", "", "")</p>
+        </div>
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Ingresar reclamo", "Agregar", "Reclamo")</li>
+                <li>@Html.ActionLink("Listado de reclamos", "Listar", "Reclamo")</li>
+            </ul>
+        </nav>
+    </div>
+    <div class="body-content">
+        @RenderBody()
+        <footer>
+            <p>&copy; @DateTime.Now.Year - CorrupteliStudios</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

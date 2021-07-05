@@ -14,6 +14,7 @@ namespace DataAccess.Persistencia
         private TipoReclamoRepository tipoReclamoRepository;
         private ReclamoRepository reclamoRepository;
         private PuntoGpsRepository puntoGpsRepository;
+        private LogReclamoRepository logReclamoRepository;
         private UsuarioRepository usuarioRepository;
 
         public Repository()
@@ -23,12 +24,17 @@ namespace DataAccess.Persistencia
             this.tipoReclamoRepository = new TipoReclamoRepository();
             this.reclamoRepository = new ReclamoRepository();
             this.puntoGpsRepository = new PuntoGpsRepository();
+            this.logReclamoRepository = new LogReclamoRepository();
             this.usuarioRepository = new UsuarioRepository();
         }
         
         public ZonaRepository GetZonaRepository()
         {
             return this.zonaRepository;
+        }
+        public LogReclamoRepository GetLogReclamoRepository()
+        {
+            return this.logReclamoRepository;
         }
         public CuadrillaRepository GetCuadrillaRepository()
         {

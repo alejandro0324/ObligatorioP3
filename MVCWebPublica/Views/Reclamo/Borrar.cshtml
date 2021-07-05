@@ -1,0 +1,40 @@
+﻿@model CommonSolution.DTOs.DTO_Reclamo
+
+@{
+    ViewBag.Title = "Borrar";
+}
+
+<h2>Dar de baja reclamo</h2>
+
+<h3>¿Estás seguro que quieres dar de baja el reclamo?</h3>
+<div>
+    <dl class="dl-horizontal">
+
+        <dt>
+            Número:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            Fecha de ingreso:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fchaHora)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("BorrarReclamo", "Reclamo", new { numero = Model.numero }))
+    { 
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Dar de baja" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a la lista", "Listar")
+        </div>
+    }
+</div>

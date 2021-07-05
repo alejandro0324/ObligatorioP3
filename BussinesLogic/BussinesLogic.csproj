@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IController.cs" />
     <Compile Include="Logic\LCuadrillaController.cs" />
+    <Compile Include="Logic\LLogReclamoController.cs" />
     <Compile Include="Logic\LReclamoController.cs" />
     <Compile Include="Logic\LUsuarioController.cs" />
     <Compile Include="Logic\LZonaController.cs" />

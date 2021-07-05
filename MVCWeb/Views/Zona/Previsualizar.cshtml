@@ -1,0 +1,108 @@
+﻿@model CommonSolution.DTOs.DTO_Zona
+
+@{
+    ViewBag.Title = "Previsualizar";
+}
+
+<h2>Previsualizar - Zona</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.color)
+        </dd>
+
+    </dl>
+</div>
+
+<span id="map" class="map"></span>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXATp2dxa45_9cf-0Lq6qMbvwZE2CebAs&callback=initMap"
+        async defer>
+</script>
+
+<p>
+    @Html.ActionLink("Volver a la lista", "Listar")
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/previsualizarZona")
+<script>
+        let map;
+        let infoWindow;
+
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: { lat: 39.8634529372744, lng: -4.034255487260607 }
+            });
+
+            var triangleCoords = [
+                @for (int i = 0; i < Model.puntosGps.Count; i++)
+                {
+                    if (i != Model.puntosGps.Count - 1)
+                    {
+                        <text>
+                        new google.maps.LatLng(@Model.puntosGps[i].longitud, @Model.puntosGps[i].latitud),
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                        new google.maps.LatLng(@Model.puntosGps[i].longitud, @Model.puntosGps[i].latitud)
+                        </text>
+                    }
+                }
+            ];
+
+            triangle = new google.maps.Polygon({
+                paths: triangleCoords,
+                draggable: false,
+                editable: false,
+                strokeColor: '@Model.color',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '@Model.color',
+                fillOpacity: 0.35
+            });
+
+            triangle.setMap(map);
+            triangle.addListener("click", showArrays);
+            infoWindow = new google.maps.InfoWindow();
+        }
+
+        function showArrays(event) {
+            const polygon = this;
+            const vertices = polygon.getPath();
+            let contentString = "";
+            for (let i = 0; i < vertices.getLength(); i++) {
+                const xy = vertices.getAt(i);
+                contentString +=
+                    "Punto " + i + ": " + xy.lat() + "," + xy.lng() + "<br><br>";
+            }
+            infoWindow.setContent(contentString);
+            infoWindow.setPosition(event.latLng);
+            infoWindow.open(map);
+        }
+</script>
+}

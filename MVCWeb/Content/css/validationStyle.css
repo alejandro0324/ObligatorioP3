@@ -2,11 +2,17 @@
     font-weight: bold;
     animation-name: redtoblack;
     animation-duration: 4s;
+    padding: 2em 2em;
+}
+
+.col-md-10 span {
+    animation-name: redtoblack;
+    animation-duration: 4s;
 }
 
 @keyframes redtoblack {
     from {
-        color: red;
+        color: #b865af;
     }
 
     to {

@@ -7,9 +7,8 @@
 <h2>Borrar</h2>
 
 <h3>¿Estás seguro que quieres borrar el tipo de reclamo?</h3>
+@Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
 <div>
-    <h4>DTO_TipoReclamo</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.id)

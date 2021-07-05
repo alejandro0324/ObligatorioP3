@@ -28,7 +28,6 @@ namespace MVCWeb.Controllers
         {
             LReclamoController tipoReclamoController = new LReclamoController();
             DTO_TipoReclamo dto = tipoReclamoController.tipoReclamoById(id);
-
             return View(dto);
         }
         public ActionResult Editar(int id)
@@ -41,9 +40,17 @@ namespace MVCWeb.Controllers
         public ActionResult BorrarTipoReclamo(int id)
         {
             LReclamoController tipoReclamoController = new LReclamoController();
-            tipoReclamoController.BorrarTipoReclamo(id);
-
-            return RedirectToAction("Listar");
+            DTO_TipoReclamo dto = tipoReclamoController.tipoReclamoById(id);
+            if (tipoReclamoController.ContieneReclamos(dto))
+            {
+                ModelState.AddModelError("MsgReport", "El tipo de reclamo tiene reclamos y no puede darse de baja");
+                return View("Borrar", dto);
+            }
+            else
+            {
+                tipoReclamoController.BorrarTipoReclamo(id);
+                return RedirectToAction("Listar");
+            }
         }
         public ActionResult AgregarTipoReclamo(DTO_TipoReclamo dto)
         {
@@ -64,16 +71,6 @@ namespace MVCWeb.Controllers
             tipoReclamoController.ModificarTipoReclamo(dto);
 
             return RedirectToAction("Listar");
-        }
-        public JsonResult ValidarNumero(int id)
-        {
-            bool rest = true;
-            LReclamoController tipoReclamoController = new LReclamoController();
-            if (tipoReclamoController.ExisteId(id) == true)
-            {
-                rest = false;
-            }
-            return Json(rest, JsonRequestBehavior.AllowGet);
         }
     }
 }

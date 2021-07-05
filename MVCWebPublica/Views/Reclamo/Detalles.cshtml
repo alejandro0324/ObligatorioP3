@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_LogReclamo>
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles de reclamo</h2>
+
+<table class="table">
+    <tr>
+        <th>Estado</th>
+        <th>Fecha/Hora</th>
+        <th>Comentarios asignados</th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>@item.estado</td>
+    <td>@item.fechaHora</td>
+    <td>@if (item.comentarioFuncionario == null)
+    {
+        <text>No existen comentarios</text>
+    }
+    else
+    {
+        @item.comentarioFuncionario
+    }
+    </td>
+</tr>
+}
+
+</table>

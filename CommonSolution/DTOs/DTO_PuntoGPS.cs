@@ -10,8 +10,10 @@ namespace CommonSolution.DTOs
     {
         public int id;
 
-        public float? latitud;
+        public string latitud;
 
-        public float? longitud;
+        public string longitud;
+
+        public int idZona;
     }
 }

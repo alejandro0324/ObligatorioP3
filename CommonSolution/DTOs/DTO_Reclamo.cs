@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,16 @@ namespace CommonSolution.DTOs
 {
     public class DTO_Reclamo
     {
-        public int numero;
+        public int numero { get; set; }
 
-        public float? latitud;
+        public string latitud { get; set; }
 
-        public float? longitud;
+        public string longitud { get; set; }
 
         public string observacionesCuadrilla;
 
-        public string observacionesCiudadano;
+        [DisplayName("Observaciones: ")]
+        public string observacionesCiudadano { get; set; }
 
         public string comentarioFuncionario;
 
@@ -26,10 +28,18 @@ namespace CommonSolution.DTOs
 
         public string nombreUsuario;
 
-        public int? idTipoReclamo;
+        public int? idTipoReclamo { get; set; }
 
         public int? numeroZona;
 
         public int? numeroCuadrilla;
+
+        public string situacion;
+
+        public DTO_TipoReclamo tipoReclamo;
+
+        public DTO_Zona zona { get; set; }
+
+        public DTO_Cuadrilla cuadrilla { get; set; }
     }
 }
