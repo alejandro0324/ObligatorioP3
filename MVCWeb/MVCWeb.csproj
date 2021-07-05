@@ -129,9 +129,11 @@
     <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TipoReclamoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\UserAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +182,8 @@
     <Content Include="Views\TipoReclamo\Listar.cshtml" />
     <Content Include="Views\TipoReclamo\Editar.cshtml" />
     <Content Include="Views\TipoReclamo\Borrar.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Usuario\Registrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -99,6 +99,7 @@
     <Compile Include="Repositorios\TipoReclamoRepository.cs" />
     <Compile Include="Repositorios\CuadrillaRepository.cs" />
     <Compile Include="Repositorios\ReclamoRepository.cs" />
+    <Compile Include="Repositorios\UsuarioRepository.cs" />
     <Compile Include="Repositorios\ZonaRepository.cs" />
   </ItemGroup>
   <ItemGroup>
