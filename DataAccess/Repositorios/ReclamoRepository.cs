@@ -16,6 +16,7 @@ namespace DataAccess.Repositorios
     public class ReclamoRepository
     {
         private T_ReclamoMapper reclamoMapper;
+        private T_CuadrillaMapper cuadrillaMapper;
         public ReclamoRepository()
         {
             this.reclamoMapper = new T_ReclamoMapper();
@@ -43,6 +44,29 @@ namespace DataAccess.Repositorios
             }
             return Reclamos;
         }
+        public List<DTO_Reclamo> ListarReclamos()
+        {
+            List<DTO_Reclamo> Reclamos = new List<DTO_Reclamo>();
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        List<T_Reclamo> ReclamoDB = context.T_Reclamo.AsNoTracking().ToList();
+                        Reclamos = this.reclamoMapper.toMap(ReclamoDB);
+
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return Reclamos;
+        }
         public void ModificarReclamo(DTO_Reclamo dto)
         {
             using (ATEntities context = new ATEntities())
@@ -56,6 +80,28 @@ namespace DataAccess.Repositorios
                         reclamo.numeroZona = dto.numeroZona;
                         reclamo.numeroCuadrilla = dto.numeroCuadrilla;
                         reclamo.comentarioFuncionario = dto.comentarioFuncionario;
+
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+        }
+        public void ModificarReclamo(DTO_Cuadrilla dto, int numeroReclamo)
+        {
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        T_Reclamo reclamo = context.T_Reclamo.FirstOrDefault(f => f.numero == numeroReclamo);
+                        reclamo.numeroZona = dto.numZona;
+                        reclamo.T_Cuadrilla = this.cuadrillaMapper.toEnt(dto);
 
                         context.SaveChanges();
                         trann.Commit();

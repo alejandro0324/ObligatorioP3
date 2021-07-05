@@ -24,6 +24,10 @@ namespace BussinesLogic.Controllers
         {
             this.repository.GetCuadrillaRepository().ActivarCuadrilla(numCuadrilla);
         }
+        public List<DTO_Cuadrilla> ListarCuadrillasByNumZona(int numeroZona)
+        {
+            return this.repository.GetCuadrillaRepository().ListarCuadrillasByNumZona(numeroZona);
+        }
         public bool ContieneReclamos(DTO_Cuadrilla dto)
         {
             return this.repository.GetCuadrillaRepository().ContieneReclamos(dto);

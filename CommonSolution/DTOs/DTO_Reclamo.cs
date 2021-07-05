@@ -9,7 +9,7 @@ namespace CommonSolution.DTOs
 {
     public class DTO_Reclamo
     {
-        public int numero;
+        public int numero { get; set; }
 
         public string latitud { get; set; }
 
@@ -35,5 +35,11 @@ namespace CommonSolution.DTOs
         public int? numeroCuadrilla;
 
         public string situacion;
+
+        public DTO_TipoReclamo tipoReclamo;
+
+        public DTO_Zona zona { get; set; }
+
+        public DTO_Cuadrilla cuadrilla { get; set; }
     }
 }

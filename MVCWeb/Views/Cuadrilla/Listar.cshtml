@@ -15,6 +15,7 @@
         <th>Nombre</th>
         <th>Cantidad de Peones</th>
         <th>Activa</th>
+        <th>Zona</th>
         <th>Opciones</th>
     </tr>
 
@@ -32,6 +33,17 @@
         {
             <p>No</p>
         }
+    </td>
+    <td>
+        @if (item.DTO_Zona != null)
+        {
+            @Html.DisplayFor(modelItem => item.DTO_Zona.nombre)
+        }
+        else
+        {
+            <p>Sin asignar</p>
+        }
+
     </td>
     <td>
         @Html.ActionLink("Editar", "Editar", new { numero = item.numero }) |

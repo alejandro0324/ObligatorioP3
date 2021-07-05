@@ -84,6 +84,10 @@ namespace BussinesLogic.Logic
         {
             return this.repository.GetReclamoRepository().ListarReclamosPersonales();
         }
+        public List<DTO_Reclamo> ListarReclamos()
+        {
+            return this.repository.GetReclamoRepository().ListarReclamos();
+        }
         public List<string> AgregarReclamo(DTO_Reclamo dto)
         {
             List<string> colMensajes = this.ValidarCamposReclamo(dto);
@@ -113,6 +117,10 @@ namespace BussinesLogic.Logic
             }
 
             return colErrores;
+        }
+        public void ModificarReclamo(DTO_Cuadrilla cuadrilla, int numeroReclamo)
+        {
+            this.repository.GetReclamoRepository().ModificarReclamo(cuadrilla, numeroReclamo);
         }
         public List<string> ValidarCamposReclamo(DTO_Reclamo dto)
         {

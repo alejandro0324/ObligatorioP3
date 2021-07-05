@@ -30,5 +30,7 @@ namespace CommonSolution.DTOs
         public string situacion;
 
         public int numZona { get; set; }
+
+        public DTO_Zona DTO_Zona;
     }
 }

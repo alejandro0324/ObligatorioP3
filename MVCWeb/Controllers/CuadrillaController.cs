@@ -13,7 +13,12 @@ namespace MVCWeb.Controllers
         public ActionResult Listar()
         {
             LCuadrillaController cuadrillaController = new LCuadrillaController();
+            LZonaController zonaController = new LZonaController();
             List<DTO_Cuadrilla> colDataModel = cuadrillaController.ListarCuadrillas();
+            foreach (var item in colDataModel)
+            {
+                item.DTO_Zona = zonaController.ZonaByNumero(item.numZona); 
+            }
 
             return View(colDataModel);
         }

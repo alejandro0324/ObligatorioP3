@@ -158,6 +158,11 @@ input.contraer:checked + .navegation-header .logo img {
     border-top: 2px solid #444444;
 }
 
+.body-content table tbody td a {
+    font-size: 12px;
+    padding: 2px;
+}
+
 .editor-for {
     margin: 0.8em;
 }

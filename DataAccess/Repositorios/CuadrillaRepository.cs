@@ -81,6 +81,29 @@ namespace DataAccess.Repositorios
             }
             return Cuadrillas;
         }
+        public List<DTO_Cuadrilla> ListarCuadrillasByNumZona(int numero)
+        {
+            List<DTO_Cuadrilla> Cuadrillas = new List<DTO_Cuadrilla>();
+            using (ATEntities context = new ATEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        List<T_Cuadrilla> CuadrillaDB = context.T_Cuadrilla.Where(w => w.numZona == numero).AsNoTracking().ToList();
+                        Cuadrillas = this.cuadrillaMapper.toMap(CuadrillaDB);
+
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return Cuadrillas;
+        }
         public void AgregarCuadrilla(DTO_Cuadrilla dto)
         {
             using (ATEntities context = new ATEntities())
