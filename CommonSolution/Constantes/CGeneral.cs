@@ -16,5 +16,8 @@ namespace CommonSolution.Constantes
         public const string EN_PROCESO = "EN_PROCESO";
         public const string RESUELTO = "RESUELTO";
         public const string DESESTIMADO = "DESESTIMADO";
+
+        public const string FUNCIONARIO = "0";
+        public const string CLIENTE = "1";
     }
 }
