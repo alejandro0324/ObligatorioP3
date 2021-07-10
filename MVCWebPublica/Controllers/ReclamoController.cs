@@ -19,23 +19,30 @@ namespace MVCWebPublica.Controllers
             LReclamoController controller = new LReclamoController();
             List<DTO_TipoReclamo> lista = controller.ListarTipoReclamo().ToList();
             ViewBag.listaTipoReclamo = lista;
+            LZonaController zonaController = new LZonaController();
+            ViewBag.Lista = zonaController.ListarZonasActivas();
             return View();
         }
 
-        public ActionResult AgregarReclamo(DTO_Reclamo dto)
+        public JsonResult AgregarReclamo(string tipoReclamo, string observaciones, string latitud, string longitud, string numeroZona)
         {
-            LReclamoController reclamoController = new LReclamoController();
-            List<string> colMensajes = reclamoController.AgregarReclamo(dto);
-
-            foreach (string msg in colMensajes)
+            List<string> colMensajes = new List<string>();
+            if (numeroZona != "-1")
             {
-                ModelState.AddModelError("MsgReport", msg);
+                LReclamoController reclamoController = new LReclamoController();
+                DTO_Reclamo dto = new DTO_Reclamo();
+                dto.idTipoReclamo = int.Parse(tipoReclamo);
+                dto.observacionesCiudadano = observaciones;
+                dto.latitud = latitud;
+                dto.longitud = longitud;
+                dto.numeroZona = int.Parse(numeroZona);
+                colMensajes = reclamoController.AgregarReclamo(dto);
             }
-
-            List<DTO_TipoReclamo> lista = reclamoController.ListarTipoReclamo().ToList();
-            ViewBag.listaTipoReclamo = lista;
-
-            return View("Agregar");
+            else
+            {
+                colMensajes.Add("El reclamo no está en ninguna zona habilitada");
+            }
+            return Json(colMensajes);
         }
         public ActionResult Listar()
         {

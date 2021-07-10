@@ -31,6 +31,6 @@ namespace CommonSolution.DTOs
 
         public DTO_Zona DTO_Zona;
 
-        public DTO_Reclamo DTO_Reclamo;
+        public List<DTO_Reclamo> DTO_Reclamo;
     }
 }

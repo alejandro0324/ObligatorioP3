@@ -7,13 +7,9 @@
 <h2>Nuevo reclamo</h2>
 <p style="color: red">
     * Campos obligatorios
-</p> <br />
-    @Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
-
-
-@using (Html.BeginForm("AgregarReclamo", "Reclamo"))
-{
-    @Html.AntiForgeryToken()
+</p>
+<br />
+@Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate", @id = "validation" })
 
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -39,18 +35,134 @@
             async defer>
     </script>
 
-    @Html.EditorFor(model => model.latitud, new { htmlAttributes = new { @class = "form-control", @id = "coordsLat" } })
-    @Html.EditorFor(model => model.longitud, new { htmlAttributes = new { @class = "form-control", @id = "coordsLng" } })
+    @Html.EditorFor(model => model.latitud, new { htmlAttributes = new { @class = "hidden", @id = "coordsLat" } })
+    @Html.EditorFor(model => model.longitud, new { htmlAttributes = new { @class = "hidden", @id = "coordsLng" } })
+
+    <input id="numeroZona" type="text" class="hidden"/>
 
     <div class="form-group">
         <div>
-            <input type="submit" value="Crear" class="btn btn-default" />
+            <input id="submit" type="submit" value="Crear" class="btn btn-default" />
         </div>
     </div>
 </div>
-}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/agregarZona")
+    <script>
+        $(function () {
+            $("#submit").click(function () {
+                var url = "@Url.Action("AgregarReclamo", "Reclamo")";
+                var tipoReclamo = document.getElementById('idTipoReclamo').value;
+                var observaciones = document.getElementById('observacionesCiudadano').value;
+                var latitud = document.getElementById('coordsLat').value;
+                var longitud = document.getElementById('coordsLng').value;
+                var numeroZona = document.getElementById('numeroZona').value;
+
+                var data = { tipoReclamo: tipoReclamo, observaciones: observaciones, latitud: latitud, longitud: longitud, numeroZona: numeroZona };
+
+                $.post(url, data).done(function (data) {
+                    $("#validation").html("");
+                    for (var i = 0; i < data.length; i++) {
+                        $("#validation").append(data[i]);
+                    }
+                });
+            });
+        });
+
+        let map;
+        let infoWindow;
+
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: { lat: 39.8634529372744, lng: -4.034255487260607 }
+            });
+
+            Marker = new google.maps.Marker({
+                position: { lat: 39.8634529372744, lng: -4.034255487260607 },
+                map,
+                draggable: true,
+            });
+
+            var contador = 0;
+            var numeroZona = "";
+            @foreach (var item in ViewBag.Lista)
+            {
+                <text>
+                var
+                </text>
+                <text>
+                ZonaCoordenadas</text><text>@item.numero.ToString() = [
+                    @for(int i = 0; i < item.puntosGps.Count; i++)
+                    {
+                        if (i != item.puntosGps.Count - 1)
+                        {
+                            <text>
+                            new google.maps.LatLng(@item.puntosGps[i].longitud, @item.puntosGps[i].latitud),
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                            new google.maps.LatLng(@item.puntosGps[i].longitud, @item.puntosGps[i].latitud)
+                            </text>
+                        }
+                    }
+                ];
+                </text>
+                <text>
+                Zona</text><text>@item.numero.ToString() = new google.maps.Polygon({
+                    paths:
+                    </text>
+                    <text>
+                    ZonaCoordenadas</text><text>@item.numero.ToString(),
+                    draggable: false,
+                    editable: false,
+                    strokeColor: '@item.color',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '@item.color',
+                    fillOpacity: 0.35
+                });
+                </text>
+                <text>
+                Zona</text>@item.numero.ToString()
+                <text>
+                .setMap(map);
+                </text>
+                <text>infoWindow = new google.maps.InfoWindow();</text>
+                <text>Zona</text>@item.numero.ToString()<text>.addListener("click", function (event) {
+                    const polygon = this;
+                    const vertices = polygon.getPath();
+                    let contentString = "Nombre: @item.nombre"
+                    infoWindow.setContent(contentString);
+                    infoWindow.setPosition(event.latLng);
+                    infoWindow.open(map);
+                });</text><text>
+                google.maps.event.addListener(Marker, "dragend", (e) => {
+                    const result</text>@item.numero.ToString()<text> = google.maps.geometry.poly.containsLocation(
+                        e.latLng,
+                        Zona</text>@item.numero.ToString()<text>
+                    ) ? numeroZona = @item.numero.ToString() : contador++;
+                });</text>
+            }
+
+            var Zonas = @Html.Raw(Json.Encode(ViewBag.Lista));
+            google.maps.event.addListener(Marker, 'dragend', function (event) {
+                document.getElementById('coordsLat').value = event.latLng.lat();
+                document.getElementById('coordsLng').value = event.latLng.lng();
+
+                if (contador == Zonas.length) {
+                    contador = 0;
+                    numeroZona = "-1";
+                    document.getElementById('numeroZona').value = -1;
+                } else {
+                    contador = 0;
+                    document.getElementById('numeroZona').value = numeroZona;
+                }
+            });
+        }
+    </script>
 }

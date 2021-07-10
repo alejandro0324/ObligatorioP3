@@ -23,7 +23,7 @@ namespace DataAccess.Mapper
                 numero = dto.numero,
                 numZona = dto.numZona,
                 situacion = dto.situacion,
-                T_Reclamo = (ICollection<T_Reclamo>)this.reclamoMapper.toEnt(dto.DTO_Reclamo)
+                T_Reclamo = this.reclamoMapper.toEnt(dto.DTO_Reclamo.ToList())
             };
         }
 
@@ -38,7 +38,8 @@ namespace DataAccess.Mapper
                 nombre = ent.nombre,
                 numero = ent.numero,
                 numZona = ent.numZona ?? 0,
-                situacion = ent.situacion
+                situacion = ent.situacion,
+                DTO_Reclamo = this.reclamoMapper.toMap(ent.T_Reclamo.ToList())
             };
         }
 

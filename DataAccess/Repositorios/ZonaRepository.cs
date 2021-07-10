@@ -49,7 +49,7 @@ namespace DataAccess.Repositorios
                 {
                     try
                     {
-                        dto = this.zonaMapper.toMap(context.T_Zona.AsNoTracking().FirstOrDefault(a => a.numero == numero));
+                        dto = this.zonaMapper.toMap(context.T_Zona.Include("T_Cuadrilla").AsNoTracking().FirstOrDefault(a => a.numero == numero));
                         
                     }
                     catch (Exception ex)

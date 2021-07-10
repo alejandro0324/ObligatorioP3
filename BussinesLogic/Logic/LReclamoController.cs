@@ -90,18 +90,27 @@ namespace BussinesLogic.Logic
         }
         public List<string> AgregarReclamo(DTO_Reclamo dto)
         {
-            List<string> colMensajes = this.ValidarCamposReclamo(dto);
+            List<string> colMensajes = new List<string>();
             dto.fchaHora = DateTime.Now;
             dto.estado = CGeneral.PENDIENTE;
             dto.situacion = CGeneral.ACTIVO;
 
-            if (colMensajes.Count == 0)
-            {
-                this.repository.GetReclamoRepository().AgregarReclamo(dto);
-                colMensajes.Add("Reclamo ingresado, número: " + dto.numero.ToString());
-            }
+            dto.numeroCuadrilla = this.FraccionadorDeCuadrillas(dto.numeroZona);
+
+            this.repository.GetReclamoRepository().AgregarReclamo(dto);
+            colMensajes.Add("Reclamo ingresado, número: " + dto.numero.ToString());
 
             return colMensajes;
+        }
+        public int? FraccionadorDeCuadrillas(int? numeroZona)
+        {
+            int? numeroCuadrilla = null;
+
+            List<DTO_Cuadrilla> cuadrillas = this.repository.GetCuadrillaRepository().ListarCuadrillasByNumZona((int)numeroZona);
+            cuadrillas = cuadrillas.OrderBy(o => o.DTO_Reclamo.Count()).ToList();
+            numeroCuadrilla = cuadrillas.FirstOrDefault().numero;
+
+            return numeroCuadrilla;
         }
         public void BorrarReclamo(int numReclamo)
         {

@@ -21,5 +21,7 @@ namespace CommonSolution.DTOs
         public string situacion;
 
         public List<DTO_PuntoGPS> puntosGps;
+
+        public List<DTO_Cuadrilla> cuadrillas;
     }
 }
