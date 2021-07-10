@@ -41,42 +41,23 @@ namespace WebInterna.Controllers
             List<DTO_LogReclamo> dto = logReclamoController.GetLogReclamosByNum(numero);
             return View(dto);
         }
-        public ActionResult EditarCuadrilla(int numeroReclamo, int? numeroZona)
+        public ActionResult EditarEstado(int numeroReclamo)
         {
             LReclamoController reclamoController = new LReclamoController();
             DTO_Reclamo dto = reclamoController.ReclamoByNumero(numeroReclamo);
-
-            LCuadrillaController cuadrillaController = new LCuadrillaController();
-            if (numeroZona == 0 || numeroZona == null)
-            {
-                ModelState.AddModelError("MsgReport", "No se pueden asignar cuadrillas sin antes asignar una zona");
-                LZonaController zonaController = new LZonaController();
-                List<DTO_Reclamo> colDataModel = reclamoController.ListarReclamos();
-                foreach (DTO_Reclamo item in colDataModel)
-                {
-                    item.tipoReclamo = reclamoController.tipoReclamoById((int)item.idTipoReclamo);
-                    if (item.numeroZona != null)
-                    {
-                        item.zona = zonaController.ZonaByNumero((int)item.numeroZona);
-                    }
-                    if (item.numeroCuadrilla != null)
-                    {
-                        item.cuadrilla = cuadrillaController.CuadrillaByNumero((int)item.numeroCuadrilla);
-                    }
-                }
-                colDataModel = colDataModel.OrderByDescending(g => g.situacion).ToList();
-                return View("Listar", colDataModel);
-            }
-            else
-            {
-                ViewBag.cuadrillas = cuadrillaController.ListarCuadrillasByNumZona((int)numeroZona).ToList();
-                return View(dto);
-            }
+            ViewBag.siguiente = reclamoController.SiguienteEstado(dto);
+            return View(dto);
         }
-        public ActionResult EditarCuadrillaSubmit(DTO_Reclamo dto)
+        public ActionResult EditarEstadoSubmit(DTO_Reclamo dto, int numero)
         {
             LReclamoController reclamoController = new LReclamoController();
-            reclamoController.ModificarReclamo(dto.cuadrilla, dto.numero);
+            DTO_Reclamo dtoAux = reclamoController.ReclamoByNumero(numero);
+            dtoAux.fchaHora = DateTime.Now;
+            dtoAux.comentarioFuncionario = dto.comentarioFuncionario;
+            dtoAux.estado = reclamoController.SiguienteEstado(dtoAux);
+            string nombreUsuario = Session["nombreUsuario"].ToString();
+            dtoAux.nombreFuncionario = nombreUsuario;
+            reclamoController.ModificarEstado(dtoAux);
             return RedirectToAction("Listar");
         }
     }

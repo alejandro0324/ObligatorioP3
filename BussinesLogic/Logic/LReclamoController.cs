@@ -130,6 +130,30 @@ namespace BussinesLogic.Logic
 
             return errores;
         }
+        public string SiguienteEstado(DTO_Reclamo dto)
+        {
+            string siguiente = "";
+            switch (dto.estado)
+            {
+                case "PENDIENTE": siguiente = "ASIGNADO";
+                    break;
+                case "ASIGNADO": siguiente = "EN PROCESO";
+                    break;
+                case "EN PROCESO": siguiente = "RESUELTO";
+                    break;
+                default:
+                    break;
+            }
+            return siguiente;
+        }
+        public void ModificarEstado(DTO_Reclamo dto)
+        {
+            if (dto.estado == "RESUELTO")
+            {
+                dto.situacion = "0";
+            }
+            this.repository.GetReclamoRepository().ModificarEstado(dto);
+        }
 
         #endregion
     }

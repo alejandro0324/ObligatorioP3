@@ -195,7 +195,7 @@
     <Content Include="Views\Zona\PrevisualizarTodo.cshtml" />
     <Content Include="Views\ReclamoInterno\Listar.cshtml" />
     <Content Include="Views\ReclamoInterno\Historial.cshtml" />
-    <Content Include="Views\ReclamoInterno\EditarCuadrilla.cshtml" />
+    <Content Include="Views\ReclamoInterno\EditarEstado.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Usuario\Registrar.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />

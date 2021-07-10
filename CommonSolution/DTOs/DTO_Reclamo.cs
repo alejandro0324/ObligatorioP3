@@ -18,7 +18,7 @@ namespace CommonSolution.DTOs
         [DisplayName("Observaciones: ")]
         public string observacionesCiudadano { get; set; }
 
-        public string comentarioFuncionario;
+        public string comentarioFuncionario { get; set; }
 
         public DateTime? fchaHora;
 

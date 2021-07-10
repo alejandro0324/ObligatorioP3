@@ -1,0 +1,45 @@
+﻿@model CommonSolution.DTOs.DTO_Reclamo
+
+@{
+    ViewBag.Title = "EditarEstado";
+}
+
+<h2>Cambiar estado del reclamo</h2>
+
+@using (Html.BeginForm("EditarEstadoSubmit", "ReclamoInterno", new { numero = Model.numero}))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <div class="form-group">
+        <p>Número de reclamo:  @Html.DisplayFor(model => model.numero)</p>
+    </div>
+    <br>
+    <div class="form-group">
+        <p>ESTADO ACTUAL: @Html.DisplayFor(model => model.estado)</p>
+    </div>
+    <br>
+    <div class="form-group">
+        <p>SIGUIENTE ESTADO: @ViewBag.siguiente</p>
+    </div>
+    <br>
+    <div class="form-group">
+        <p>Agregar comentario: (opcional)</p>
+        @Html.TextAreaFor(model => model.comentarioFuncionario, 7, 50, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <br>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Confirmar" class="btn btn-default" />
+        </div>
+        <div>
+            @Html.ActionLink("Desestimar", "Desestimar", new { numero = Model.numero })
+            @Html.ActionLink("Volver a la lista", "Listar")
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

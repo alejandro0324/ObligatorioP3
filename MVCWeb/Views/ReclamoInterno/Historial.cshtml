@@ -29,7 +29,14 @@
                     @item.comentarioFuncionario
                 }
             </td>
-            <td>@item.nombreUsuario</td>
+            <td>@if (item.nombreFuncionario == null)
+            {
+                <text> - </text>
+            }
+            else
+            {
+
+            }@item.nombreFuncionario</td>
         </tr>
 }
 </table>

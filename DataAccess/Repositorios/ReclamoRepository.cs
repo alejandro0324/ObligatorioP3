@@ -44,6 +44,30 @@ namespace DataAccess.Repositorios
             }
             return Reclamos;
         }
+        public void ModificarEstado(DTO_Reclamo dto)
+        {
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        T_Reclamo t = context.T_Reclamo.FirstOrDefault(f => f.numero == dto.numero);
+                        t.nombreFuncionario = dto.nombreFuncionario;
+                        t.estado = dto.estado;
+                        t.comentarioFuncionario = dto.comentarioFuncionario;
+                        t.situacion = dto.situacion;
+                        t.fechahora = dto.fchaHora;
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+        }
         public List<DTO_Reclamo> ListarReclamos()
         {
             List<DTO_Reclamo> Reclamos = new List<DTO_Reclamo>();
