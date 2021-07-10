@@ -14,11 +14,12 @@ namespace DataAccess.Model
     
     public partial class T_LogReclamo
     {
-        public string nombreUsuario { get; set; }
+        public string nombreCliente { get; set; }
+        public string nombreFuncionario { get; set; }
         public int numReclamo { get; set; }
         public string tipoReclamo { get; set; }
-        public Nullable<double> latitud { get; set; }
-        public Nullable<double> longitud { get; set; }
+        public string latitud { get; set; }
+        public string longitud { get; set; }
         public Nullable<System.DateTime> fechaHora { get; set; }
         public string estado { get; set; }
         public string observacionesCiudadno { get; set; }

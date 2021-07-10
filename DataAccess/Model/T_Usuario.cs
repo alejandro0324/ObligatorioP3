@@ -18,6 +18,7 @@ namespace DataAccess.Model
         public T_Usuario()
         {
             this.T_Reclamo = new HashSet<T_Reclamo>();
+            this.T_Reclamo1 = new HashSet<T_Reclamo>();
         }
     
         public string nombreUsuario { get; set; }
@@ -30,5 +31,7 @@ namespace DataAccess.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Reclamo> T_Reclamo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Reclamo> T_Reclamo1 { get; set; }
     }
 }

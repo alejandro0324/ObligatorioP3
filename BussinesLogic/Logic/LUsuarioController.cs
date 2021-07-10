@@ -18,9 +18,9 @@ namespace BussinesLogic.Logic
             this.repository = new Repository();
         }
 
-        public bool ExisteNombreUsuario(string nombreUsuario)
+        public bool ExisteNombreUsuario(string nombreUsuario, string tipo)
         {
-            return this.repository.GetUsuarioRepository().ExisteNombreUsuario(nombreUsuario);
+            return this.repository.GetUsuarioRepository().ExisteNombreUsuario(nombreUsuario, tipo);
         }
 
         public bool ValidarUsuario(DTO_Usuario dto)
@@ -28,18 +28,38 @@ namespace BussinesLogic.Logic
             return this.repository.GetUsuarioRepository().ValidarUsuario(dto);
         }
 
-        public void RegistrarUsuario(DTO_Usuario dto, string tipo)
+        public bool ValidarUsuarioPublico(DTO_Usuario dto)
         {
-            if (tipo == "0")
+            return this.repository.GetUsuarioRepository().ValidarUsuarioPublico(dto);
+        }
+
+        public List<string> RegistrarUsuario(DTO_Usuario dto, string tipo)
+        {
+            List<string> errores = new List<string>();
+            if (this.ExisteNombreUsuario(dto.nombreUsuario, tipo))
             {
-                dto.userType = CGeneral.FUNCIONARIO;
+                errores.Add("El nombre de usuario ya existe, vuelva a intentarlo");
+                return errores;
             }
             else
             {
-                dto.userType = CGeneral.CLIENTE;
-            }
-            
-            this.repository.GetUsuarioRepository().RegistrarUsuario(dto);
+                if (tipo == "0")
+                {
+                    dto.userType = CGeneral.FUNCIONARIO;
+                }
+                else
+                {
+                    dto.userType = CGeneral.CLIENTE;
+                }
+
+                this.repository.GetUsuarioRepository().RegistrarUsuario(dto);
+                return errores;
+            } 
+        }
+
+        public string GetCorreoByUsuario(string nombreUsuario)
+        {
+            return this.repository.GetUsuarioRepository().GetCorreoByUsuario(nombreUsuario);
         }
     }
 }

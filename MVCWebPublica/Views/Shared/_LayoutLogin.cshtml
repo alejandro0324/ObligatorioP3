@@ -15,17 +15,6 @@
             <img src="../../../Content/photos/bandera.svg" alt="Bandera Toledo" />
             <p>Ayuntamiento de Toledo</p>
         </div>
-        <div class="navegation-header-info">
-            <p>Usuario: @Session["nombreUsuario"]</p>
-            <p>Correo: @Session["correo"]</p>
-            <p>@Html.ActionLink("Cerrar sesión", "LogOut", "UsuarioPublico")</p>
-        </div>
-        <nav>
-            <ul>
-                <li>@Html.ActionLink("Ingresar reclamo", "Agregar", "Reclamo")</li>
-                <li>@Html.ActionLink("Listado de reclamos", "Listar", "Reclamo")</li>
-            </ul>
-        </nav>
     </div>
     <div class="body-content">
         @RenderBody()

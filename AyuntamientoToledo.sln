@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Presentacion", "0.Present
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Service", "1.Service", "{77654F73-9BD5-42A1-BCA9-5556DC88A4EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCWebInterna", "MVCWeb\MVCWebInterna.csproj", "{3B7E5D75-5479-4C9F-97A6-4A7ED95DDA9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInterna", "MVCWeb\WebInterna.csproj", "{3B7E5D75-5479-4C9F-97A6-4A7ED95DDA9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCWebPublica", "MVCWebPublica\MVCWebPublica.csproj", "{ECB6972F-EEC8-4D44-A486-978961CEAC4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPublica", "MVCWebPublica\WebPublica.csproj", "{ECB6972F-EEC8-4D44-A486-978961CEAC4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,15 +1,17 @@
 ﻿using BussinesLogic.Controllers;
 using BussinesLogic.Logic;
 using CommonSolution.DTOs;
-using MVCWeb.Controllers;
+using WebPublica.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebPublica.Helpers;
 
 namespace MVCWebPublica.Controllers
 {
+    [UserAuthentication]
     public class ReclamoController : Controller
     {
         public ActionResult Agregar()

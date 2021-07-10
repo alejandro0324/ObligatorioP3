@@ -25,12 +25,12 @@ namespace CommonSolution.DTOs
         [Required(ErrorMessage = "La cantidad de peones es requerida")]
         public int? cantidadPeones { get; set; }
 
-        public string nombreUsuario;
-
         public string situacion;
 
         public int numZona { get; set; }
 
         public DTO_Zona DTO_Zona;
+
+        public DTO_Reclamo DTO_Reclamo;
     }
 }

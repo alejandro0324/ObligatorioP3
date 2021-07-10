@@ -24,7 +24,7 @@ namespace DataAccess.Repositorios
         public bool ContieneReclamos(DTO_Zona dto)
         {
             bool existe = false;
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -43,7 +43,7 @@ namespace DataAccess.Repositorios
         public DTO_Zona ZonaByNumero(int numero)
         {
             DTO_Zona dto = new DTO_Zona();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -63,7 +63,7 @@ namespace DataAccess.Repositorios
         public bool ExisteZona(int numero)
         {
             bool existe = false;
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -81,7 +81,7 @@ namespace DataAccess.Repositorios
         }
         public void AgregarZona(DTO_Zona dto)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -101,7 +101,7 @@ namespace DataAccess.Repositorios
         }
         public void BorrarZona(int numZona)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -120,7 +120,7 @@ namespace DataAccess.Repositorios
         }
         public void ActivarZona(int numZona)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -140,7 +140,7 @@ namespace DataAccess.Repositorios
         public List<DTO_Zona> ListarZonas()
         {
             List<DTO_Zona> Zonas = new List<DTO_Zona>();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -163,7 +163,7 @@ namespace DataAccess.Repositorios
         public List<DTO_Zona> ListarZonasActivas()
         {
             List<DTO_Zona> Zonas = new List<DTO_Zona>();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {

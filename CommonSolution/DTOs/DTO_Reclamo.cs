@@ -15,8 +15,6 @@ namespace CommonSolution.DTOs
 
         public string longitud { get; set; }
 
-        public string observacionesCuadrilla;
-
         [DisplayName("Observaciones: ")]
         public string observacionesCiudadano { get; set; }
 
@@ -26,7 +24,9 @@ namespace CommonSolution.DTOs
 
         public string estado;
 
-        public string nombreUsuario;
+        public string nombreFuncionario;
+
+        public string nombreCliente;
 
         public int? idTipoReclamo { get; set; }
 

@@ -24,7 +24,7 @@ namespace DataAccess.Repositorios
         public List<DTO_LogReclamo> GetLogReclamosByNum(int numero)
         {
             List<DTO_LogReclamo> Reclamos = new List<DTO_LogReclamo>();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {

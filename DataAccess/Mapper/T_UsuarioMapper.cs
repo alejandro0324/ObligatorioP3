@@ -22,7 +22,8 @@ namespace DataAccess.Mapper
                 contraseña = dto.contraseña,
                 correoElectronico = dto.correoElectronico,
                 nombre = dto.nombre,
-                telefono = dto.telefono
+                telefono = dto.telefono,
+                userType = dto.userType
             };
         }
 
@@ -38,7 +39,8 @@ namespace DataAccess.Mapper
                 contraseña = ent.contraseña,
                 correoElectronico = ent.correoElectronico,
                 nombre = ent.nombre,
-                telefono = ent.telefono
+                telefono = ent.telefono,
+                userType = ent.userType
             };
         }
 

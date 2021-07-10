@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebInterna.Helpers
+namespace WebPublica.Helpers
 {
     public class UserAuthentication : AuthorizeAttribute
     {

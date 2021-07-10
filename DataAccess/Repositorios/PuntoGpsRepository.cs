@@ -21,7 +21,7 @@ namespace DataAccess.Repositorios
         }
         public DTO_PuntoGPS AgregarPuntoGps(DTO_PuntoGPS dto)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -42,7 +42,7 @@ namespace DataAccess.Repositorios
         }
         public void ModificarPuntoGps(DTO_PuntoGPS dto)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -64,7 +64,7 @@ namespace DataAccess.Repositorios
         }
         public void BorrarPuntoGps(int id)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {

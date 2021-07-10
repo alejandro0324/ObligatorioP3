@@ -18,11 +18,11 @@ namespace DataAccess.Model
         public string latitud { get; set; }
         public string longitud { get; set; }
         public string observacionesCiudadano { get; set; }
-        public string observacionesCuadrilla { get; set; }
         public string comentarioFuncionario { get; set; }
         public Nullable<System.DateTime> fechahora { get; set; }
         public string estado { get; set; }
-        public string nombreUsuario { get; set; }
+        public string nombreCliente { get; set; }
+        public string nombreFuncionario { get; set; }
         public Nullable<int> IdTipoReclamo { get; set; }
         public Nullable<int> numeroZona { get; set; }
         public Nullable<int> numeroCuadrilla { get; set; }
@@ -32,5 +32,6 @@ namespace DataAccess.Model
         public virtual T_Usuario T_Usuario { get; set; }
         public virtual T_TipoReclamo T_TipoReclamo { get; set; }
         public virtual T_Zona T_Zona { get; set; }
+        public virtual T_Usuario T_Usuario1 { get; set; }
     }
 }

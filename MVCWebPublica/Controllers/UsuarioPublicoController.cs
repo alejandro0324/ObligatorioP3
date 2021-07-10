@@ -7,17 +7,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using WebInterna.Helpers;
+using WebPublica.Helpers;
 
-namespace WebInterna.Controllers
+namespace WebPublica.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioPublicoController : Controller
     {
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated == true)
             {
-                return Redirect("~/Home");
+                return Redirect("~/HomePublica");
             }
             return View();
         }
@@ -26,14 +26,14 @@ namespace WebInterna.Controllers
         public ActionResult Login(DTO_Usuario dto)
         {
             LUsuarioController controller = new LUsuarioController();
-            if (controller.ValidarUsuario(dto))
+            if (controller.ValidarUsuarioPublico(dto))
             {
                 FormsAuthentication.SetAuthCookie(dto.nombreUsuario, false);
                 ViewBag.mensaje = " ";
 
                 Session["nombreUsuario"] = dto.nombreUsuario;
                 Session["correo"] = controller.GetCorreoByUsuario(dto.nombreUsuario);
-                return Redirect("~/Home");
+                return Redirect("~/HomePublica");
             }
             else
             {
@@ -52,7 +52,7 @@ namespace WebInterna.Controllers
         {
             LUsuarioController controller = new LUsuarioController();
 
-            List<string> errores = controller.RegistrarUsuario(dto, "0");
+            List<string> errores = controller.RegistrarUsuario(dto, "1");
             if (errores.Count() == 0)
             {
                 ViewBag.errores = errores;

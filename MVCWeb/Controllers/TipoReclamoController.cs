@@ -1,14 +1,14 @@
 ﻿using BussinesLogic.Controllers;
 using BussinesLogic.Logic;
 using CommonSolution.DTOs;
-using MVCWeb.Helpers;
+using WebInterna.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MVCWeb.Controllers
+namespace WebInterna.Controllers
 {
     [UserAuthentication]
     public class TipoReclamoController : Controller

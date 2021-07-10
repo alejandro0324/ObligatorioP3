@@ -21,16 +21,16 @@ namespace DataAccess.Repositorios
             this.UsuarioMapper = new T_UsuarioMapper();
         }
 
-        public bool ExisteNombreUsuario(string nombreUsuario)
+        public bool ExisteNombreUsuario(string nombreUsuario, string tipo)
         {
             bool existe = false;
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
                     try
                     {
-                        existe = context.T_Usuario.AsNoTracking().Any(a => a.nombreUsuario == nombreUsuario && a.userType == CGeneral.FUNCIONARIO);
+                        existe = context.T_Usuario.AsNoTracking().Any(a => a.nombreUsuario == nombreUsuario && a.userType == tipo);
                     }
                     catch (Exception ex)
                     {
@@ -40,11 +40,29 @@ namespace DataAccess.Repositorios
             }
             return existe;
         }
-
+        public string GetCorreoByUsuario (string nombreUsuario)
+        {
+            string correo = " ";
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        correo = context.T_Usuario.AsNoTracking().FirstOrDefault(a => a.nombreUsuario == nombreUsuario).correoElectronico;
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return correo;
+        }
         public bool ValidarUsuario(DTO_Usuario dto)
         {
             bool existe = false;
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -60,10 +78,29 @@ namespace DataAccess.Repositorios
             }
             return existe;
         }
+        public bool ValidarUsuarioPublico(DTO_Usuario dto)
+        {
+            bool existe = false;
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        existe = context.T_Usuario.AsNoTracking().Any(a => a.nombreUsuario == dto.nombreUsuario && a.contraseña == dto.contraseña && a.userType == CGeneral.CLIENTE);
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+            return existe;
+        }
 
         public void RegistrarUsuario(DTO_Usuario dto)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {

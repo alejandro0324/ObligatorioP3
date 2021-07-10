@@ -72,12 +72,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AyuntamientoToledo.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\sp_helpdiagrams_Result.cs">
-      <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\T_Cuadrilla.cs">
       <DependentUpon>AyuntamientoToledo.tt</DependentUpon>
     </Compile>
@@ -113,12 +107,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Model\AyuntamientoToledo.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AyuntamientoToledo.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CommonSolution\CommonSolution.csproj">
       <Project>{3525A4D8-DA07-4A7B-8525-CB269A8FF7DF}</Project>
       <Name>CommonSolution</Name>
@@ -126,6 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="Model\AyuntamientoToledo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AyuntamientoToledo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Model\AyuntamientoToledo.edmx.diagram">
       <DependentUpon>AyuntamientoToledo.edmx</DependentUpon>
     </None>
@@ -134,8 +126,8 @@
   <ItemGroup>
     <Content Include="Model\AyuntamientoToledo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AyuntamientoToledo.Context.cs</LastGenOutput>
       <DependentUpon>AyuntamientoToledo.edmx</DependentUpon>
+      <LastGenOutput>AyuntamientoToledo.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model\AyuntamientoToledo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

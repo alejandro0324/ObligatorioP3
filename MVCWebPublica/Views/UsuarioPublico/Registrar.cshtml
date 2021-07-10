@@ -8,7 +8,7 @@
 <h2>Registro de Usuario</h2> <p class="text-danger-validate">@ViewBag.errores</p>
 
 
-@using (Html.BeginForm("RegistrarSubmit", "Usuario"))
+@using (Html.BeginForm("RegistrarSubmit", "UsuarioPublico"))
 {
     @Html.AntiForgeryToken()
 

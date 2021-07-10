@@ -10,6 +10,7 @@ namespace DataAccess.Mapper
 {
     public class T_CuadrillaMapper
     {
+        public T_ReclamoMapper reclamoMapper = new T_ReclamoMapper();
         public T_Cuadrilla toEnt(DTO_Cuadrilla dto)
         {
             if (dto == null)
@@ -17,12 +18,12 @@ namespace DataAccess.Mapper
 
             return new T_Cuadrilla()
             {
-                nombreUsuario = dto.nombreUsuario,
                 nombre = dto.nombre,
                 cantidadPeones = dto.cantidadPeones,
                 numero = dto.numero,
                 numZona = dto.numZona,
-                situacion = dto.situacion
+                situacion = dto.situacion,
+                T_Reclamo = (ICollection<T_Reclamo>)this.reclamoMapper.toEnt(dto.DTO_Reclamo)
             };
         }
 
@@ -34,7 +35,6 @@ namespace DataAccess.Mapper
             return new DTO_Cuadrilla()
             {
                 cantidadPeones = ent.cantidadPeones,
-                nombreUsuario = ent.nombreUsuario,
                 nombre = ent.nombre,
                 numero = ent.numero,
                 numZona = ent.numZona ?? 0,

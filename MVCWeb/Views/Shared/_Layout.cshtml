@@ -16,9 +16,9 @@
             <p>Ayuntamiento de Toledo</p>
         </div>
         <div class="navegation-header-info">
-            <p>Usuario: </p>
-            <p>Correo: </p>
-            <p>@Html.ActionLink("Cerrar sesión", "", "")</p>
+            <p>Usuario: @Session["nombreUsuario"]</p>
+            <p>Correo: @Session["correo"]</p>
+            <p>@Html.ActionLink("Cerrar sesión", "LogOut", "Usuario")</p>
         </div>
         <nav>
             <ul>

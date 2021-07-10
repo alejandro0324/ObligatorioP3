@@ -8,15 +8,17 @@ namespace CommonSolution.DTOs
 {
     public class DTO_LogReclamo
     {
-        public string nombreUsuario;
+        public string nombreCliente;
+
+        public string nombreFuncionario;
 
         public int numReclamo;
 
         public string tipoReclamo;
 
-        public double? latitud;
+        public string latitud;
 
-        public double? longitud;
+        public string longitud;
 
         public DateTime? fechaHora;
 

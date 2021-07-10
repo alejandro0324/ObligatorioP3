@@ -1,13 +1,13 @@
 ﻿using BussinesLogic.Controllers;
 using CommonSolution.DTOs;
-using MVCWeb.Helpers;
+using WebInterna.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MVCWeb.Controllers
+namespace WebInterna.Controllers
 {
     [UserAuthentication]
     public class CuadrillaController : Controller
@@ -21,7 +21,6 @@ namespace MVCWeb.Controllers
             {
                 item.DTO_Zona = zonaController.ZonaByNumero(item.numZona); 
             }
-
             return View(colDataModel);
         }
         public ActionResult Agregar()

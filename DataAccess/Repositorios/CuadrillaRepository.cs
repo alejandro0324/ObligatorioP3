@@ -22,7 +22,7 @@ namespace DataAccess.Repositorios
         }
         public void ActivarCuadrilla(int numCuadrilla)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -42,7 +42,7 @@ namespace DataAccess.Repositorios
         public bool ContieneReclamos(DTO_Cuadrilla dto)
         {
             bool existe = false;
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -61,7 +61,7 @@ namespace DataAccess.Repositorios
         public List<DTO_Cuadrilla> ListarCuadrillas()
         {
             List<DTO_Cuadrilla> Cuadrillas = new List<DTO_Cuadrilla>();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -84,7 +84,7 @@ namespace DataAccess.Repositorios
         public List<DTO_Cuadrilla> ListarCuadrillasByNumZona(int numero)
         {
             List<DTO_Cuadrilla> Cuadrillas = new List<DTO_Cuadrilla>();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -106,7 +106,7 @@ namespace DataAccess.Repositorios
         }
         public void AgregarCuadrilla(DTO_Cuadrilla dto)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -126,7 +126,7 @@ namespace DataAccess.Repositorios
         }
         public void ModificarCuadrilla(DTO_Cuadrilla dto)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -150,7 +150,7 @@ namespace DataAccess.Repositorios
         public bool ExisteCuadrilla(int numCuadrilla)
         {
             bool existe = false;
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -168,7 +168,7 @@ namespace DataAccess.Repositorios
         }
         public void BorrarCuadrilla(int numCuadrilla)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -188,7 +188,7 @@ namespace DataAccess.Repositorios
         public DTO_Cuadrilla CuadrillaByNumero(int numero)
         {
             DTO_Cuadrilla dto = new DTO_Cuadrilla();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {

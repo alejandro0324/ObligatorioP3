@@ -17,7 +17,8 @@ namespace DataAccess.Mapper
 
             return new T_Reclamo()
             {
-                nombreUsuario = dto.nombreUsuario,
+                nombreCliente = dto.nombreCliente,
+                nombreFuncionario = dto.nombreFuncionario,
                 longitud = dto.longitud,
                 latitud = dto.latitud,
                 comentarioFuncionario = dto.comentarioFuncionario,
@@ -28,7 +29,6 @@ namespace DataAccess.Mapper
                 numeroCuadrilla = dto.numeroCuadrilla,
                 numeroZona = dto.numeroZona,
                 observacionesCiudadano = dto.observacionesCiudadano,
-                observacionesCuadrilla = dto.observacionesCuadrilla,
                 situacion = dto.situacion
             };
         }
@@ -40,7 +40,8 @@ namespace DataAccess.Mapper
 
             return new DTO_Reclamo()
             {
-                nombreUsuario = ent.nombreUsuario,
+                nombreCliente = ent.nombreCliente,
+                nombreFuncionario = ent.nombreFuncionario,
                 longitud = ent.longitud,
                 latitud = ent.latitud,
                 comentarioFuncionario = ent.comentarioFuncionario,
@@ -51,7 +52,6 @@ namespace DataAccess.Mapper
                 numeroCuadrilla = ent.numeroCuadrilla,
                 numeroZona = ent.numeroZona,
                 observacionesCiudadano = ent.observacionesCiudadano,
-                observacionesCuadrilla = ent.observacionesCuadrilla,
                 situacion = ent.situacion
             };
         }

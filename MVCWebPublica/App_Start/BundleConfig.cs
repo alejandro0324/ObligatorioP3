@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace MVCWebPublica
+namespace WebPublica
 {
     public class BundleConfig
     {

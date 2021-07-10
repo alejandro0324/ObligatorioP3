@@ -23,7 +23,6 @@ namespace DataAccess.Model
         public int numero { get; set; }
         public string nombre { get; set; }
         public Nullable<int> cantidadPeones { get; set; }
-        public string nombreUsuario { get; set; }
         public string situacion { get; set; }
         public Nullable<int> numZona { get; set; }
     

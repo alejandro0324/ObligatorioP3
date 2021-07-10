@@ -24,7 +24,7 @@ namespace DataAccess.Repositorios
         public List<DTO_Reclamo> ListarReclamosPersonales()
         {
             List<DTO_Reclamo> Reclamos = new List<DTO_Reclamo>();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -47,7 +47,7 @@ namespace DataAccess.Repositorios
         public List<DTO_Reclamo> ListarReclamos()
         {
             List<DTO_Reclamo> Reclamos = new List<DTO_Reclamo>();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -69,7 +69,7 @@ namespace DataAccess.Repositorios
         }
         public void ModificarReclamo(DTO_Reclamo dto)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -93,7 +93,7 @@ namespace DataAccess.Repositorios
         }
         public void ModificarReclamo(DTO_Cuadrilla dto, int numeroReclamo)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -116,7 +116,7 @@ namespace DataAccess.Repositorios
         public DTO_Reclamo AgregarReclamo(DTO_Reclamo dto)
         {
             DTO_Reclamo dtoReturn = dto;
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -139,7 +139,7 @@ namespace DataAccess.Repositorios
         }
         public void BorrarReclamo(int numReclamo)
         {
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
@@ -160,7 +160,7 @@ namespace DataAccess.Repositorios
         public DTO_Reclamo ReclamoByNumero(int numero)
         {
             DTO_Reclamo dto = new DTO_Reclamo();
-            using (ATEntities context = new ATEntities())
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
