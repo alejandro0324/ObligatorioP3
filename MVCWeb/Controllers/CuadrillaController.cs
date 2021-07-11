@@ -37,12 +37,25 @@ namespace WebInterna.Controllers
         }
         public ActionResult Editar(int numero)
         {
-            LZonaController zonaController = new LZonaController();
-            ViewBag.zonas = zonaController.ListarZonas().ToList();
             LCuadrillaController cuadrillaController = new LCuadrillaController();
             DTO_Cuadrilla dto = cuadrillaController.CuadrillaByNumero(numero);
-
-            return View(dto);
+            if (cuadrillaController.ContieneReclamos(dto))
+            {
+                ModelState.AddModelError("MsgReport", "La cuadrilla esta a cargo de reclamos actualmente y no puede ser editada");
+                List<DTO_Cuadrilla> colDataModel = cuadrillaController.ListarCuadrillas();
+                LZonaController zonaController = new LZonaController();
+                foreach (var item in colDataModel)
+                {
+                    item.DTO_Zona = zonaController.ZonaByNumero(item.numZona);
+                }
+                return View("Listar", colDataModel);
+            }
+            else
+            {
+                LZonaController zonaController = new LZonaController();
+                ViewBag.zonas = zonaController.ListarZonas().ToList();
+                return View(dto);
+            }
         }
         public ActionResult CambiarEstado(int numero)
         {
@@ -51,7 +64,7 @@ namespace WebInterna.Controllers
 
             if (cuadrillaController.ContieneReclamos(dto))
             {
-                ModelState.AddModelError("MsgReport", "La cuadrilla contiene reclamos actualmente y no puede cambiar de estado");
+                ModelState.AddModelError("MsgReport", "La cuadrilla esta a cargo de reclamos actualmente y no puede cambiar de estado");
                 return View("Borrar", dto);
             }
             else

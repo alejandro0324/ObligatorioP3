@@ -48,7 +48,7 @@ namespace DataAccess.Repositorios
                 {
                     try
                     {
-                        existe = context.T_Reclamo.AsNoTracking().Any(a => a.numeroCuadrilla == dto.numero);
+                        existe = context.T_Reclamo.AsNoTracking().Any(a => a.numeroCuadrilla == dto.numero && a.situacion == CGeneral.ACTIVO);
                     }
                     catch (Exception ex)
                     {

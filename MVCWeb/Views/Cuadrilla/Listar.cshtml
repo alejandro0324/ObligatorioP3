@@ -5,6 +5,8 @@
 }
 
 <h2>Listar</h2>
+@Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
+
 
 <p>
     @Html.ActionLink("Nueva cuadrilla", "Agregar")
@@ -19,37 +21,38 @@
         <th>Opciones</th>
     </tr>
 
-@foreach (CommonSolution.DTOs.DTO_Cuadrilla item in Model) {
-<tr>
-    <td>@Html.DisplayFor(modelItem => item.numero)</td>
-    <td>@Html.DisplayFor(modelItem => item.nombre)</td>
-    <td>@Html.DisplayFor(modelItem => item.cantidadPeones)</td>
-    <td>
-        @if (item.situacion == "1")
-        {
-            <p>Sí</p>
-        }
-        else
-        {
-            <p>No</p>
-        }
-    </td>
-    <td>
-        @if (item.DTO_Zona != null)
-        {
-            @Html.DisplayFor(modelItem => item.DTO_Zona.nombre)
-        }
-        else
-        {
-            <p>Sin asignar</p>
-        }
+    @foreach (CommonSolution.DTOs.DTO_Cuadrilla item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.numero)</td>
+            <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.cantidadPeones)</td>
+            <td>
+                @if (item.situacion == "1")
+                {
+                    <p>Sí</p>
+                }
+                else
+                {
+                    <p>No</p>
+                }
+            </td>
+            <td>
+                @if (item.DTO_Zona != null)
+                {
+                    @Html.DisplayFor(modelItem => item.DTO_Zona.nombre)
+                }
+                else
+                {
+                    <p>Sin asignar</p>
+                }
 
-    </td>
-    <td>
-        @Html.ActionLink("Editar", "Editar", new { numero = item.numero }) |
-        @Html.ActionLink("Cambiar estado", "Borrar", new { numero = item.numero })
-    </td>
-</tr>
-}
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { numero = item.numero }) |
+                @Html.ActionLink("Cambiar estado", "Borrar", new { numero = item.numero })
+            </td>
+        </tr>
+    }
 
 </table>
