@@ -80,9 +80,9 @@ namespace BussinesLogic.Logic
         {
             return this.repository.GetReclamoRepository().ReclamoByNumero(numero);
         }
-        public List<DTO_Reclamo> ListarReclamosPersonales()
+        public List<DTO_Reclamo> ListarReclamosPersonales(string nombre)
         {
-            return this.repository.GetReclamoRepository().ListarReclamosPersonales();
+            return this.repository.GetReclamoRepository().ListarReclamosPersonales(nombre);
         }
         public List<DTO_Reclamo> ListarReclamos()
         {
@@ -108,9 +108,20 @@ namespace BussinesLogic.Logic
 
             List<DTO_Cuadrilla> cuadrillas = this.repository.GetCuadrillaRepository().ListarCuadrillasByNumZona((int)numeroZona);
             cuadrillas = cuadrillas.OrderBy(o => o.DTO_Reclamo.Count()).ToList();
-            numeroCuadrilla = cuadrillas.FirstOrDefault().numero;
+            if (cuadrillas.Count() > 0)
+            {
+                numeroCuadrilla = cuadrillas.FirstOrDefault().numero;
+            }
 
             return numeroCuadrilla;
+        }
+        public void DesestimarReclamo(DTO_Reclamo dto)
+        {
+            this.repository.GetReclamoRepository().DesestimarReclamo(dto);
+        }
+        public void ModificarCuadrilla(int numero, int? numeroCuadrilla)
+        {
+            this.repository.GetReclamoRepository().ModificarCuadrilla(numero, numeroCuadrilla);
         }
         public void BorrarReclamo(int numReclamo)
         {

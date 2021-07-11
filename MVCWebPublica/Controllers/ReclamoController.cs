@@ -31,6 +31,7 @@ namespace MVCWebPublica.Controllers
             {
                 LReclamoController reclamoController = new LReclamoController();
                 DTO_Reclamo dto = new DTO_Reclamo();
+                dto.nombreCliente = Session["nombreUsuario"].ToString();
                 dto.idTipoReclamo = int.Parse(tipoReclamo);
                 dto.observacionesCiudadano = observaciones;
                 dto.latitud = latitud;
@@ -47,7 +48,8 @@ namespace MVCWebPublica.Controllers
         public ActionResult Listar()
         {
             LReclamoController controller = new LReclamoController();
-            List<DTO_Reclamo> lista = controller.ListarReclamosPersonales().ToList();
+            string nombreUsuario = Session["nombreUsuario"].ToString();
+            List<DTO_Reclamo> lista = controller.ListarReclamosPersonales(nombreUsuario).ToList();
             lista = lista.OrderByDescending(s => s.fchaHora).ToList();
             return View(lista);
         }

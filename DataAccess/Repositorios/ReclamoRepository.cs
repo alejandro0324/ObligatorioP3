@@ -21,7 +21,7 @@ namespace DataAccess.Repositorios
         {
             this.reclamoMapper = new T_ReclamoMapper();
         }
-        public List<DTO_Reclamo> ListarReclamosPersonales()
+        public List<DTO_Reclamo> ListarReclamosPersonales(string nombre)
         {
             List<DTO_Reclamo> Reclamos = new List<DTO_Reclamo>();
             using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
@@ -30,7 +30,7 @@ namespace DataAccess.Repositorios
                 {
                     try
                     {
-                        List<T_Reclamo> ReclamoDB = context.T_Reclamo.Where(w => w.situacion == CGeneral.ACTIVO).AsNoTracking().ToList();
+                        List<T_Reclamo> ReclamoDB = context.T_Reclamo.Where(w => w.nombreCliente == nombre).AsNoTracking().ToList();
                         Reclamos = this.reclamoMapper.toMap(ReclamoDB);
 
                         context.SaveChanges();
@@ -58,6 +58,49 @@ namespace DataAccess.Repositorios
                         t.comentarioFuncionario = dto.comentarioFuncionario;
                         t.situacion = dto.situacion;
                         t.fechahora = dto.fchaHora;
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+        }
+        public void ModificarCuadrilla(int numero, int? numeroCuadrilla)
+        {
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        context.T_Reclamo.FirstOrDefault(f => f.numero == numero).numeroCuadrilla = numeroCuadrilla;
+                        context.SaveChanges();
+                        trann.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trann.Rollback();
+                    }
+                }
+            }
+        }
+        public void DesestimarReclamo(DTO_Reclamo dto)
+        {
+            using (AyuntamientoToledoEntities context = new AyuntamientoToledoEntities())
+            {
+                using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        T_Reclamo t = context.T_Reclamo.FirstOrDefault(f => f.numero == dto.numero);
+                        t.comentarioFuncionario = dto.comentarioFuncionario;
+                        t.estado = dto.estado;
+                        t.situacion = dto.situacion;
+                        t.fechahora = dto.fchaHora;
+                        t.nombreFuncionario = dto.nombreFuncionario;
                         context.SaveChanges();
                         trann.Commit();
                     }
@@ -170,6 +213,7 @@ namespace DataAccess.Repositorios
                     try
                     {
                         T_Reclamo reclamo = context.T_Reclamo.FirstOrDefault(f => f.numero == numReclamo);
+                        reclamo.estado = "DESESTIMADO";
                         reclamo.situacion = CGeneral.INACTIVO;
                         context.SaveChanges();
                         trann.Commit();
