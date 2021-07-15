@@ -11,7 +11,7 @@ using WebPublica.Helpers;
 
 namespace MVCWebPublica.Controllers
 {
-    [UserAuthentication]
+    [UserPublicoAuthentication]
     public class ReclamoController : Controller
     {
         public ActionResult Agregar()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace CommonSolution.DTOs
         public string longitud { get; set; }
 
         [DisplayName("Observaciones: ")]
+        [StringLength(100, ErrorMessage = "El comentario no puede superar los 100 caracteres")]
         public string observacionesCiudadano { get; set; }
 
         public string comentarioFuncionario { get; set; }
@@ -41,5 +43,7 @@ namespace CommonSolution.DTOs
         public DTO_Zona zona { get; set; }
 
         public DTO_Cuadrilla cuadrilla { get; set; }
+
+        public double horas;
     }
 }

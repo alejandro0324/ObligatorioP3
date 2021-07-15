@@ -18,10 +18,12 @@ namespace CommonSolution.DTOs
         public int numero { get; set; }
 
         [DisplayName("Nombre:")]
+        [StringLength(20, ErrorMessage = "El nombre no puede superar los 20 caracteres")]
         [Required(ErrorMessage = "El nombre es requerido")]
         public string nombre { get; set; }
 
         [DisplayName("Cantidad de peones:")]
+        [Range(0.0, int.MaxValue, ErrorMessage = "El número debe ser mayor a {1}.")]
         [Required(ErrorMessage = "La cantidad de peones es requerida")]
         public int? cantidadPeones { get; set; }
 
@@ -32,5 +34,7 @@ namespace CommonSolution.DTOs
         public DTO_Zona DTO_Zona;
 
         public List<DTO_Reclamo> DTO_Reclamo;
+
+        public double? promedio;
     }
 }

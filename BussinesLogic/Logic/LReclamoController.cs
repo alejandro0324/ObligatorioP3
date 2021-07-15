@@ -88,6 +88,10 @@ namespace BussinesLogic.Logic
         {
             return this.repository.GetReclamoRepository().ListarReclamos();
         }
+        public List<DTO_Reclamo> ListarReclamosActivos()
+        {
+            return this.repository.GetReclamoRepository().ListarReclamosActivos();
+        }
         public List<string> AgregarReclamo(DTO_Reclamo dto)
         {
             List<string> colMensajes = new List<string>();
@@ -173,6 +177,25 @@ namespace BussinesLogic.Logic
                 dto.situacion = "0";
             }
             this.repository.GetReclamoRepository().ModificarEstado(dto);
+        }
+        public List<DTO_LogReclamo> ListarReclamosPorFechas(DateTime fechaUno, DateTime fechaDos)
+        {
+            return this.repository.GetLogReclamoRepository().ListarReclamosPorFechas(fechaUno, fechaDos);
+        }
+        public List<DTO_Reclamo> ReclamosAtrasados()
+        {
+            List<DTO_Reclamo> lista = new List<DTO_Reclamo>();
+            lista = this.repository.GetReclamoRepository().ReclamosAtrasados();
+            foreach (DTO_Reclamo item in lista)
+            {
+                TimeSpan cantidadHoras = (DateTime.Now - this.repository.GetLogReclamoRepository().TiempoInicialDelReclamo(item.numero));
+                item.horas = Math.Truncate(cantidadHoras.TotalHours);
+            }
+            return lista;
+        }
+        public List<DTO_Reclamo> ListByEstado(string estado)
+        {
+            return this.repository.GetReclamoRepository().ListarReclamos(estado);
         }
 
         #endregion

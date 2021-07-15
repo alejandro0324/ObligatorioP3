@@ -1,0 +1,100 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Reclamo>
+
+<table class="table">
+    <tr>
+        <th>
+            Número
+        </th>
+        <th>
+            Fecha/Hora
+        </th>
+        <th>
+            Estado
+        </th>
+        <th>
+            Tipo de reclamo
+        </th>
+        <th>
+            Zona
+        </th>
+        <th>
+            Cuadrilla
+        </th>
+        <th>
+            Situación
+        </th>
+        <th>
+            Comentario cliente
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.numero)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.fchaHora)
+    </td>
+    <td>
+        @if (item.situacion == "1" && item.numeroCuadrilla != null)
+        {
+            @Html.DisplayFor(modelItem => item.estado) <text> </text>
+        }
+        else if (item.estado == "RESUELTO" || item.estado == "DESESTIMADO" || item.numeroCuadrilla == null)
+        {
+            @Html.DisplayFor(modelItem => item.estado)
+        }
+        else
+        {
+            <text>DESESTIMADO POR CLIENTE</text>
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
+    </td>
+    <td>
+        @if (item.zona == null)
+        {
+            <text>No asignada</text>
+        }
+        else
+        {
+            @Html.DisplayFor(modelItem => item.zona.nombre)
+        }
+    </td>
+    <td>
+        @if (item.cuadrilla == null && item.situacion != "0")
+        {
+            <text>No asignada</text>
+        }
+        else
+        {
+            if (item.numeroCuadrilla == null)
+            {
+                <text>No asignada</text>
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.cuadrilla.nombre)
+            }
+        }
+    </td>
+    <td>
+        @if (item.situacion == "0")
+        {
+            <text>Inactivo</text>
+        }
+        else
+        {
+            <text>Activo</text>
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.observacionesCiudadano)
+    </td>
+</tr>
+    }
+
+</table>

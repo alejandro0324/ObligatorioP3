@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Reclamo>
+
+@{
+    ViewBag.Title = "PrimerReporte";
+}
+
+<h2>Reclamos asignados por cuadrilla</h2>
+
+<div class="form-group">
+    <label>Seleccione una cuadrilla:</label>
+    <div class="col-md-10">
+        @Html.DropDownList("cuadrillas", new SelectList(ViewBag.cuadrillas, "numero", "nombre"), htmlAttributes: new { @class = "select", @id = "txtCuadrilla" })
+        <input type="submit" id="btnBuscar" value="Buscar" class="btn btn-info" />
+    </div>
+</div>
+
+<div id="divTblReclamos">
+
+    @Html.Partial("_ListarReclamos", Model)
+
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/primerReporte")
+}

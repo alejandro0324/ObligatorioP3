@@ -73,6 +73,35 @@ namespace BussinesLogic.Controllers
 
             return errores;
         }
+        public List<DTO_Reclamo> GetReclamos(int numero)
+        {
+            List<DTO_Reclamo> lista = new List<DTO_Reclamo>();
+            lista = this.repository.GetReclamoRepository().ListarReclamosByCuadrilla(numero);
+            return lista;
+        }
+        public double? CalcularPromedio(int numero)
+        {
+            double? promedio = null;
+            int cantidadReclamos = 0;
+            double tiempoFinalizacionPromedio = 0;
+
+            List<DTO_Reclamo> lista = new List<DTO_Reclamo>();
+            lista = this.repository.GetReclamoRepository().ListarReclamosFinalizadosByCuadrilla(numero);
+            cantidadReclamos = lista.Count();
+            double tiempoFinalizacionHoras = 0;
+            foreach (var item in lista)
+            {
+                tiempoFinalizacionHoras = tiempoFinalizacionHoras + this.repository.GetLogReclamoRepository().TiempoDeFinalizaciónPromedio(item.numero);
+            }
+            tiempoFinalizacionPromedio = tiempoFinalizacionHoras / lista.Count();
+            promedio = cantidadReclamos / tiempoFinalizacionPromedio;
+            if (double.IsNaN((double)promedio))
+            {
+                promedio = 0;
+            }
+
+            return promedio;
+        }
 
         #endregion
     }

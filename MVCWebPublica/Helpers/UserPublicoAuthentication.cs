@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace WebPublica.Helpers
 {
-    public class UserAuthentication : AuthorizeAttribute
+    public class UserPublicoAuthentication : AuthorizeAttribute
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {

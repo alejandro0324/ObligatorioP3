@@ -129,6 +129,7 @@
     <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReclamoInternoController.cs" />
+    <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\TipoReclamoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />
@@ -163,9 +164,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\listarReclamos.js" />
     <Content Include="Scripts\mapsApi\agregarZona.js" />
     <Content Include="Scripts\mapsApi\previsualizarZona.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\primerReporte.js" />
+    <Content Include="Scripts\quintoReporte.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -177,8 +181,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Cuadrilla\Listar.cshtml" />
     <Content Include="Views\Cuadrilla\Agregar.cshtml" />
@@ -200,6 +202,15 @@
     <Content Include="Views\Usuario\Registrar.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\ReclamoInterno\Desestimar.cshtml" />
+    <Content Include="Views\Reporte\Listar.cshtml" />
+    <Content Include="Views\Reporte\PrimerReporte.cshtml" />
+    <Content Include="Views\Reporte\_ListarReclamos.cshtml" />
+    <Content Include="Views\Reporte\QuintoReporte.cshtml" />
+    <Content Include="Views\Reporte\_MapaTermico.cshtml" />
+    <Content Include="Views\Reporte\SegundoReporte.cshtml" />
+    <Content Include="Views\Reporte\TercerReporte.cshtml" />
+    <Content Include="Views\Reporte\CuartoReporte.cshtml" />
+    <Content Include="Views\ReclamoInterno\_ListaReclamos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

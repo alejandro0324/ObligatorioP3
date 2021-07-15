@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_LogReclamo>
+
+@{
+    ViewBag.Title = "QuintoReporte";
+}
+
+<h2>Mapa térmico</h2>
+<div class="form-group">
+    <label>Seleccione un rango de fechas:</label>
+    <div class="col-md-10">
+        <label>Desde:</label>
+        <input type="date" id="fechaUno" />
+        <br />
+        <label>Hasta:</label>
+        <input type="date" id="fechaDos" />
+        <br>
+        <input type="submit" id="btnBuscar" value="Buscar" class="btn btn-info" />
+    </div>
+</div>
+
+<div id="divMapa">
+
+</div>
+
+<div>
+    @Html.ActionLink("Volver a reportes", "Listar")
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/quintoReporte")
+}

@@ -133,7 +133,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\UserAuthentication.cs" />
+    <Compile Include="Helpers\UserPublicoAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -275,8 +275,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\HomePublica\About.cshtml" />
-    <Content Include="Views\HomePublica\Contact.cshtml" />
     <Content Include="Views\HomePublica\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />

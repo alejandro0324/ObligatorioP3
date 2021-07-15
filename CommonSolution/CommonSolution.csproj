@@ -71,7 +71,6 @@
     <Compile Include="DTOs\DTO_Reclamo.cs" />
     <Compile Include="DTOs\DTO_TipoReclamo.cs" />
     <Compile Include="DTOs\DTO_Zona.cs" />
-    <Compile Include="DTOs\IDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

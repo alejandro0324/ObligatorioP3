@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_LogReclamo>
+
+<span id="map" class="map"></span>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXATp2dxa45_9cf-0Lq6qMbvwZE2CebAs&callback=initMap&libraries=visualization"
+        async defer>
+</script>
+
+<script>
+    let map, heatmap;
+
+    function initMap() {
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: { lat: 39.8634529372744, lng: -4.034255487260607 },
+            mapTypeId: "satellite",
+        });
+
+        heatmap = new google.maps.visualization.HeatmapLayer({
+            data: getPoints(),
+            map: map,
+        });
+
+        function getPoints() {
+            return [
+                @foreach (var item in Model)
+                {
+                    <text>
+                    new google.maps.LatLng(@item.latitud, @item.longitud),
+                    </text>
+                }
+            ];
+        }
+    }
+</script>

@@ -20,6 +20,15 @@ namespace WebInterna
             bundles.Add(new ScriptBundle("~/bundles/previsualizarZona").Include(
                         "~/Scripts/mapsApi/previsualizarZona.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/primerReporte").Include(
+                        "~/Scripts/primerReporte.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/quintoReporte").Include(
+                        "~/Scripts/quintoReporte.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/reclamos").Include(
+                        "~/Scripts/listarReclamos.js"));
+
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
             // para la producción, use la herramienta de compilación disponible en https://modernizr.com para seleccionar solo las pruebas que necesite.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

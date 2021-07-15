@@ -23,5 +23,13 @@ namespace BussinesLogic.Logic
             List<DTO_LogReclamo> lista = this.repository.GetLogReclamoRepository().GetLogReclamosByNum(numero);
             return lista;
         }
+        public List<DTO_LogReclamo> ListarReclamosPorFechas(DateTime fechaUno, DateTime fechaDos)
+        {
+            return this.repository.GetLogReclamoRepository().ListarReclamosPorFechas(fechaUno, fechaDos);
+        }
+        public List<DTO_LogReclamo> ListarReclamosActivos()
+        {
+            return this.repository.GetLogReclamoRepository().ListarReclamosActivos();
+        }
     }
 }

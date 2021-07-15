@@ -18,8 +18,8 @@ namespace DataAccess.Mapper
 
             return new T_Cuadrilla()
             {
-                nombre = dto.nombre,
                 cantidadPeones = dto.cantidadPeones,
+                nombre = dto.nombre,
                 numero = dto.numero,
                 numZona = dto.numZona,
                 situacion = dto.situacion,

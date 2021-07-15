@@ -8,104 +8,18 @@
 <p>Para acceder a opciones: ⮥</p>
 @Html.ValidationMessage("MsgReport", new { @class = "text-danger-validate" })
 <br />
+Filtrar por estado: @Html.TextBox("txtEstado")
+<input type="submit" id="btnBuscar" value="Buscar" class="btn btn-info" />
 <br />
 
-<table class="table">
-    <tr>
-        <th>
-            Número
-        </th>
-        <th>
-            Fecha/Hora
-        </th>
-        <th>
-            Estado
-        </th>
-        <th>
-            Tipo de reclamo
-        </th>
-        <th>
-            Zona
-        </th>
-        <th>
-            Cuadrilla
-        </th>
-        <th>
-            Situación
-        </th>
-        <th>
-            Historial
-        </th>
-        <th>
-            Comentario cliente
-        </th>
-    </tr>
+<div id="divTblReclamos">
 
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.numero)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.fchaHora)
-    </td>
-    <td>
-        @if (item.situacion == "1" && item.numeroCuadrilla != null)
-        {
-            @Html.DisplayFor(modelItem => item.estado) <text> </text>
-            @Html.ActionLink("⮥", "EditarEstado", new { numeroReclamo = item.numero })
-        }
-        else if (item.estado == "RESUELTO" || item.estado == "DESESTIMADO" || item.numeroCuadrilla == null)
-        {
-            @Html.DisplayFor(modelItem => item.estado)
-        }
-        else
-        {
-            <text>DESESTIMADO POR CLIENTE</text>
-        }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
-    </td>
-    <td>
-        @if (item.zona == null)
-        {
-            <text>No asignada</text>
-        }
-        else
-        {
-            @Html.DisplayFor(modelItem => item.zona.nombre)
-        }
-    </td>
-    <td>
-        @if (item.numeroCuadrilla == null)
-        {
-            <text>No asignada</text>
-            @Html.ActionLink("⮥", "AsignarCuadrilla", new { numeroReclamo = item.numero })
-        }
-        else
-        {
-            @Html.DisplayFor(modelItem => item.cuadrilla.nombre)
-        }
-    </td>
-    <td>
-        @if (item.situacion == "0")
-        {
-            <text>Inactivo</text>
-        }
-        else
-        {
-            <text>Activo</text>
-        }
-    </td>
-    <td>
-        @Html.ActionLink("Ver", "Historial", new { numero = item.numero })
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.observacionesCiudadano)
-    </td>
-</tr>
-    }
+    @Html.Partial("_ListaReclamos", Model)
 
-</table>
+</div>
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/reclamos");
+
+}

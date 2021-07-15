@@ -36,6 +36,38 @@ namespace WebInterna.Controllers
             return View(colDataModel);
         }
 
+        [HttpPost]
+        public ActionResult Buscar(string estado)
+        {
+            LReclamoController reclamoController = new LReclamoController();
+            List<DTO_Reclamo> lista = new List<DTO_Reclamo>();
+            if (!string.IsNullOrEmpty(estado))
+            {
+                lista = reclamoController.ListByEstado(estado);
+            }
+            else
+            {
+                lista = reclamoController.ListarReclamos();
+            }
+
+            foreach (DTO_Reclamo item in lista)
+            {
+                LZonaController zonaController = new LZonaController();
+                LCuadrillaController cuadrillaController = new LCuadrillaController();
+                item.tipoReclamo = reclamoController.tipoReclamoById((int)item.idTipoReclamo);
+                if (item.numeroZona != null)
+                {
+                    item.zona = zonaController.ZonaByNumero((int)item.numeroZona);
+                }
+                if (item.numeroCuadrilla != null)
+                {
+                    item.cuadrilla = cuadrillaController.CuadrillaByNumero((int)item.numeroCuadrilla);
+                }
+            }
+
+            return PartialView("_ListaReclamos", lista);
+        }
+
         public ActionResult Historial(int numero)
         {
             LLogReclamoController logReclamoController = new LLogReclamoController();

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Cuadrilla>
+
+@{
+    ViewBag.Title = "TercerReporte";
+}
+
+<h2>Cuadrillas más eficientes</h2>
+<p>El promedio de eficiencia puede no corresponder debido a que la cuadrilla todavía no tiene reclamos resueltos.</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidadPeones)
+        </th>
+        <th>
+            Número de zona
+        </th>
+        <th>
+            Promedio de eficiencia
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidadPeones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numZona)
+        </td>
+        <td>
+            @if (item.promedio == null || double.IsNaN((double)item.promedio))
+            {
+                <text>No corresponde</text>
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.promedio)
+            }
+        </td>
+    </tr>
+}
+
+</table>

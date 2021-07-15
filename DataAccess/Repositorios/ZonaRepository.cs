@@ -148,9 +148,6 @@ namespace DataAccess.Repositorios
                     {
                         List<T_Zona> ZonasDB = context.T_Zona.AsNoTracking().ToList();
                         Zonas = this.zonaMapper.toMap(ZonasDB);
-
-                        context.SaveChanges();
-                        trann.Commit();
                     }
                     catch (Exception ex)
                     {

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CommonSolution.DTOs.DTO_Reclamo>
+
+@{
+    ViewBag.Title = "CuartoReporte";
+}
+
+<h2>Visor de reclamos</h2>
+
+<span id="map" class="map"></span>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXATp2dxa45_9cf-0Lq6qMbvwZE2CebAs&callback=initMap&libraries=visualization"
+        async defer>
+</script>
+
+<script>
+    let map;
+    let infoWindow;
+
+    function initMap() {
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: { lat: 39.8634529372744, lng: -4.034255487260607 }
+        });
+
+        @foreach (var item in Model)
+        {
+            <text>let marker</text>@item.numero<text> = new google.maps.Marker({
+            map: map,
+            position: { lat: </text>@item.latitud<text>, lng: </text>@item.longitud<text> },
+            icon:
+            {
+                </text>if (item.horas < 20)
+                {
+                    <text> url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" </text>
+                }
+                else if (item.horas > 20 && item.horas < 60)
+                {
+                    <text> url: "http://maps.google.com/mapfiles/ms/icons/orange-dot.png" </text>
+                }
+                else
+                {
+                    <text> url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" </text>
+                }
+                <text>
+                }
+            });
+                </text><text>infoWindow = new google.maps.InfoWindow();</text>
+                <text>marker</text>@item.numero.ToString()<text>.addListener("click", function (event) {
+                    let contentString = "Número: @item.numero"
+                                        + "<br>" +
+                                        "Cantidad de horas: @item.horas";
+                    infoWindow.setContent(contentString);
+                    infoWindow.setPosition(event.latLng);
+                    infoWindow.open(map);
+                })</text>
+        }
+
+    }
+</script>
