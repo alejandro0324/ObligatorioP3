@@ -432,9 +432,39 @@ namespace WebInterna.Controllers
             }
             #endregion
 
-            string QRText = "Número de reclamo: " + dto.numero + "\nFecha/hora de último cambio: " + dto.fchaHora 
-                + "\nEstado acutal: " + dto.estado + "\nId del tipo de reclamo: " + dto.idTipoReclamo + "\nNúmero de zona: "
-                + dto.numeroZona;
+            #region QR
+            string QRText = "Número de reclamo: " + dto.numero;
+            QRText += "\nFecha/hora de último cambio: " + dto.fchaHora;
+            QRText += "\nEstado actual: " + dto.estado;
+            QRText += "\nTipo de reclamo: " + dto.tipoReclamo.nombre;
+            QRText += "\nNombre de zona: " + dto.zona.nombre;
+            if (dto.cuadrilla != null)
+            {
+                QRText += "\nNombre de cuadrilla: " + dto.cuadrilla.nombre;
+            }
+            else
+            {
+                QRText += "\nNombre de cuadrilla: No asignada";
+            }
+            if (dto.nombreFuncionario != null)
+            {
+                QRText += "\nNombre de funcionario encargado: " + dto.nombreFuncionario;
+            }
+            else
+            {
+                QRText += "\nNombre de funcionario encargado: No asignado";
+            }
+            if (dto.comentarioFuncionario != null)
+            {
+                QRText += "\nComentario de funcionario: " + dto.comentarioFuncionario;
+            }
+            else
+            {
+                QRText += "\nComentario de funcionario: -";
+            }
+            QRText += "\nComentario de cliente: " + dto.observacionesCiudadano;
+            QRText += "\nCorruptteliStudios - 2021";
+            #endregion
             BarcodeQRCode barcodeQRCode = new BarcodeQRCode(QRText, 1000, 1000, null);
             Image barcodeQRCodeImage = barcodeQRCode.GetImage();
             barcodeQRCodeImage.ScaleAbsolute(200, 200);
